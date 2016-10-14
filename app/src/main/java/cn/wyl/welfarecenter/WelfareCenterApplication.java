@@ -3,6 +3,8 @@ package cn.wyl.welfarecenter;
 import android.app.Application;
 import android.content.Context;
 
+import cn.wyl.welfarecenter.activity.MainActivity;
+
 /**
  * 项目名称：WelfareCenter
  * 创建人：wyl

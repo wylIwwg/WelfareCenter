@@ -3,7 +3,7 @@ package cn.wyl.welfarecenter.utils;
 import android.app.Activity;
 import android.content.Intent;
 
-import cn.wyl.welfarecenter.MainActivity;
+import cn.wyl.welfarecenter.activity.MainActivity;
 import cn.wyl.welfarecenter.R;
 
 

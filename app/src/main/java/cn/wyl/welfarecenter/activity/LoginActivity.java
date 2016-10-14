@@ -1,8 +1,10 @@
-package cn.wyl.welfarecenter;
+package cn.wyl.welfarecenter.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import cn.wyl.welfarecenter.R;
 
 /**
  * 项目名称：WelfareCenter

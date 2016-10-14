@@ -1,19 +1,18 @@
-package cn.wyl.welfarecenter;
+package cn.wyl.welfarecenter.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
-    private long sleepTime = 3000;
+import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.utils.MFGT;
 
+public class SplashActivity extends AppCompatActivity {
+    private long sleepTime = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_splash);
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -29,12 +28,9 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                MFGT.startActivity(SplashActivity.this,LoginActivity.class);
+                MFGT.finish(SplashActivity.this);
             }
         }.start();
     }
-
-
 }
