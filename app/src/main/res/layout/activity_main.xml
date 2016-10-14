@@ -5,4 +5,83 @@
     android:layout_height="match_parent">
 
 
+    <RadioGroup
+        android:id="@+id/rg_menu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/list_background"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_newgoods"
+            style="@style/menu_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_new_good"
+            android:text="新品"
+            >
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb_boutique"
+            style="@style/menu_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_boutique"
+            android:text="精品"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_category"
+            style="@style/menu_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_category"
+            android:text="列表"
+            />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1">
+
+            <RadioButton
+
+                android:id="@+id/rb_cart"
+                style="@style/menu_style"
+                android:layout_width="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="7dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_cart"
+                android:text="购物车"
+                />
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/tv_cart_hint"
+                android:layout_width="30dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignRight="@id/rb_cart"
+                android:background="@drawable/cart_hint"
+                android:text="10"/>
+        </RelativeLayout>
+
+
+        <RadioButton
+            android:id="@+id/center"
+            style="@style/menu_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_personal_center"
+            android:text="个人中心"
+            />
+
+    </RadioGroup>
+
+    <View
+        android:id="@+id/hintLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/rg_menu"
+        android:background="#ccf"></View>
 </RelativeLayout>
