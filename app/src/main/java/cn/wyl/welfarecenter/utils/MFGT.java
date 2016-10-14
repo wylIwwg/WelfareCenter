@@ -3,8 +3,8 @@ package cn.wyl.welfarecenter.utils;
 import android.app.Activity;
 import android.content.Intent;
 
-import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.activity.MainActivity;
+import cn.wyl.welfarecenter.MainActivity;
+import cn.wyl.welfarecenter.R;
 
 
 public class MFGT {

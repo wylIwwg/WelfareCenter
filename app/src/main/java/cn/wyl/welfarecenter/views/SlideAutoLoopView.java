@@ -18,7 +18,8 @@ import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.utils.ImageLoader;
+
 
 /**
  * 图片轮播

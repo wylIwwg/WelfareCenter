@@ -19,9 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.ucai.fulicenter.FuLiCenterApplication;
-import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.bean.Result;
+import cn.wyl.welfarecenter.I;
+import cn.wyl.welfarecenter.bean.Result;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -144,7 +143,7 @@ public class OkHttpUtils<T> {
 
 
     private void initHandler() {
-        mHandler = new Handler(FuLiCenterApplication.applicationContext.getMainLooper()) {
+       /* mHandler = new Handler(WelfareCenterApplication.applicationContext.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -157,7 +156,7 @@ public class OkHttpUtils<T> {
                         break;
                 }
             }
-        };
+        };*/
     }
 
     /**
