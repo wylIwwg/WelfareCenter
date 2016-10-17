@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.wyl.welfarecenter.I;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.Result;
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -143,7 +144,7 @@ public class OkHttpUtils<T> {
 
 
     private void initHandler() {
-       /* mHandler = new Handler(WelfareCenterApplication.applicationContext.getMainLooper()) {
+        mHandler = new Handler(WelfareCenterApplication.getInstance().getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -156,7 +157,7 @@ public class OkHttpUtils<T> {
                         break;
                 }
             }
-        };*/
+        };
     }
 
     /**
