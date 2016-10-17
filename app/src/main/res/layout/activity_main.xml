@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerLayout"
+        android:layout_above="@id/hintLine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
     <RadioGroup
         android:id="@+id/rg_menu"
@@ -45,7 +50,6 @@
             android:layout_weight="1">
 
             <RadioButton
-
                 android:id="@+id/rb_cart"
                 style="@style/menu_style"
                 android:layout_width="match_parent"
@@ -54,22 +58,23 @@
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_cart"
                 android:text="购物车"
+
                 />
 
             <TextView
-                android:gravity="center_horizontal"
                 android:id="@+id/tv_cart_hint"
                 android:layout_width="30dp"
                 android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignRight="@id/rb_cart"
                 android:background="@drawable/cart_hint"
+                android:gravity="center_horizontal"
                 android:text="10"/>
         </RelativeLayout>
 
 
         <RadioButton
-            android:id="@+id/center"
+            android:id="@+id/rb_center"
             style="@style/menu_style"
             android:button="@null"
             android:drawableTop="@drawable/selector_menu_item_personal_center"
