@@ -1,7 +1,7 @@
-package cn.wyl.welfarecenter;
+package cn.wyl.welfarecenter.fragments;
 
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.activity.GoodsDetailsActivity;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.net.NetDao;
@@ -31,7 +33,6 @@ public class NewGoodsFragment extends Fragment {
     NewGoodsAdapter mNewGoodsAdapter;
     ArrayList<NewGoodsBean> mList;
     GridLayoutManager mGridLayoutManager;
-    Context mContext;
 
     int pageId = 1;
     @BindView(R.id.tv_refresh)
@@ -42,14 +43,12 @@ public class NewGoodsFragment extends Fragment {
     SwipeRefreshLayout mSwiper;
 
     public NewGoodsFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, view);
         mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
@@ -70,9 +69,23 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void setListeners() {
+
+        mNewGoodsAdapter.setOnItemCKListener(new NewGoodsAdapter.OnItemCKListener() {
+            @Override
+            public void onItemClicK(View view, int position) {
+
+                int id = mList.get(position).getGoodsId();
+                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+
+
         mSwiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                pageId = 1;
                 mSwiper.setRefreshing(true);
                 mSwiper.setEnabled(true);
                 mTvRefresh.setVisibility(View.VISIBLE);
@@ -100,8 +113,7 @@ public class NewGoodsFragment extends Fragment {
                 if (position >= mNewGoodsAdapter.getItemCount() - 1) {
                     pageId++;
                     initData(true);
-                }
-                else {
+                } else {
                     mNewGoodsAdapter.setFooter("没有数据了");
                 }
             }
@@ -109,15 +121,19 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initData(final boolean isAll) {
+
         NetDao.downLoadNewGoods(getActivity(), pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
+                mList = list;
                 Log.d("main", "" + list.size());
                 if (isAll) {
                     mNewGoodsAdapter.initAllData(list);
                 } else
                     mNewGoodsAdapter.initData(list);
+
+
             }
 
             @Override
@@ -125,6 +141,7 @@ public class NewGoodsFragment extends Fragment {
 
             }
         });
+
     }
 
     private ArrayList<NewGoodsBean> downLoadData() {

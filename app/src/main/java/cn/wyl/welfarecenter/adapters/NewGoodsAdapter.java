@@ -21,7 +21,7 @@ import cn.wyl.welfarecenter.utils.ImageLoader;
  * 时间：2016/10/17 11:16
  */
 public class NewGoodsAdapter extends RecyclerView.Adapter {
-    List<NewGoodsBean> mList;
+  static   List<NewGoodsBean> mList;
     Context mContext;
     private String isMore;
     private String mFooter;
@@ -40,6 +40,16 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
+    public interface OnItemCKListener{
+        void onItemClicK(View view,int position);
+    }
+    private OnItemCKListener mOnItemCKListener;
+
+    public  void  setOnItemCKListener(OnItemCKListener mOnItemCKListener){
+        this.mOnItemCKListener=mOnItemCKListener;
+    }
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
@@ -52,7 +62,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (position == getItemCount() - 1) {
             FooterItem vh = (FooterItem) holder;
             vh.mtv_footer.setText("加载更多数据");
@@ -64,6 +74,16 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         vh.mtv_goodsName.setText(goods.getGoodsName());
 
         ImageLoader.downloadImg(mContext,vh.mimg_goods,goods.getGoodsThumb());
+
+        if (mOnItemCKListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos=holder.getLayoutPosition();
+                    mOnItemCKListener.onItemClicK(holder.itemView,pos);
+                }
+            });
+        }
     }
 
     @Override

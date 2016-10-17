@@ -50,20 +50,12 @@ public class GoodsDetailsBean {
     private int addTime;
     private boolean promote;
 
-    public int getId() {
-        return id;
+    public int getAddTime() {
+        return addTime;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
+    public void setAddTime(int addTime) {
+        this.addTime = addTime;
     }
 
     public int getCatId() {
@@ -74,84 +66,12 @@ public class GoodsDetailsBean {
         this.catId = catId;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public String getColorCode() {
+        return colorCode;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
-    public String getGoodsEnglishName() {
-        return goodsEnglishName;
-    }
-
-    public void setGoodsEnglishName(String goodsEnglishName) {
-        this.goodsEnglishName = goodsEnglishName;
-    }
-
-    public String getGoodsBrief() {
-        return goodsBrief;
-    }
-
-    public void setGoodsBrief(String goodsBrief) {
-        this.goodsBrief = goodsBrief;
-    }
-
-    public String getShopPrice() {
-        return shopPrice;
-    }
-
-    public void setShopPrice(String shopPrice) {
-        this.shopPrice = shopPrice;
-    }
-
-    public String getCurrencyPrice() {
-        return currencyPrice;
-    }
-
-    public void setCurrencyPrice(String currencyPrice) {
-        this.currencyPrice = currencyPrice;
-    }
-
-    public String getPromotePrice() {
-        return promotePrice;
-    }
-
-    public void setPromotePrice(String promotePrice) {
-        this.promotePrice = promotePrice;
-    }
-
-    public String getRankPrice() {
-        return rankPrice;
-    }
-
-    public void setRankPrice(String rankPrice) {
-        this.rankPrice = rankPrice;
-    }
-
-    public boolean isIsPromote() {
-        return isPromote;
-    }
-
-    public void setIsPromote(boolean isPromote) {
-        this.isPromote = isPromote;
-    }
-
-    public String getGoodsThumb() {
-        return goodsThumb;
-    }
-
-    public void setGoodsThumb(String goodsThumb) {
-        this.goodsThumb = goodsThumb;
-    }
-
-    public String getGoodsImg() {
-        return goodsImg;
-    }
-
-    public void setGoodsImg(String goodsImg) {
-        this.goodsImg = goodsImg;
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
     }
 
     public int getColorId() {
@@ -170,14 +90,6 @@ public class GoodsDetailsBean {
         this.colorName = colorName;
     }
 
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
     public String getColorUrl() {
         return colorUrl;
     }
@@ -186,19 +98,99 @@ public class GoodsDetailsBean {
         this.colorUrl = colorUrl;
     }
 
-    public int getAddTime() {
-        return addTime;
+    public String getCurrencyPrice() {
+        return currencyPrice;
     }
 
-    public void setAddTime(int addTime) {
-        this.addTime = addTime;
+    public void setCurrencyPrice(String currencyPrice) {
+        this.currencyPrice = currencyPrice;
+    }
+
+    public String getGoodsBrief() {
+        return goodsBrief;
+    }
+
+    public void setGoodsBrief(String goodsBrief) {
+        this.goodsBrief = goodsBrief;
+    }
+
+    public String getGoodsEnglishName() {
+        return goodsEnglishName;
+    }
+
+    public void setGoodsEnglishName(String goodsEnglishName) {
+        this.goodsEnglishName = goodsEnglishName;
+    }
+
+    public int getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getGoodsImg() {
+        return goodsImg;
+    }
+
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getGoodsThumb() {
+        return goodsThumb;
+    }
+
+    public void setGoodsThumb(String goodsThumb) {
+        this.goodsThumb = goodsThumb;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isPromote() {
-        return promote;
+        return isPromote;
     }
 
     public void setPromote(boolean promote) {
-        this.promote = promote;
+        isPromote = promote;
+    }
+
+    public String getPromotePrice() {
+        return promotePrice;
+    }
+
+    public void setPromotePrice(String promotePrice) {
+        this.promotePrice = promotePrice;
+    }
+
+    public String getRankPrice() {
+        return rankPrice;
+    }
+
+    public void setRankPrice(String rankPrice) {
+        this.rankPrice = rankPrice;
+    }
+
+    public String getShopPrice() {
+        return shopPrice;
+    }
+
+    public void setShopPrice(String shopPrice) {
+        this.shopPrice = shopPrice;
     }
 }

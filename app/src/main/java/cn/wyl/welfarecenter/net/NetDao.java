@@ -3,6 +3,7 @@ package cn.wyl.welfarecenter.net;
 import android.content.Context;
 
 import cn.wyl.welfarecenter.I;
+import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
@@ -22,4 +23,13 @@ public class NetDao {
                 .execute(listener);
 
     }
+
+    public static void downGoodsDetails(Context context, int goodId, OkHttpUtils.OnCompleteListener<GoodsDetailsBean> listener){
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_GOODS_DETAILS)
+                .addParam(I.GoodsDetails.KEY_GOODS_ID,goodId+"")
+                .targetClass(GoodsDetailsBean.class)
+                .execute(listener);
+    }
+
 }
