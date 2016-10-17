@@ -11,7 +11,7 @@ import java.util.List;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
-import cn.wyl.welfarecenter.bean.GoodsBean;
+import cn.wyl.welfarecenter.bean.NewGoodsBean;
 
 /**
  * 项目名称：WelfareCenter
@@ -19,8 +19,14 @@ import cn.wyl.welfarecenter.bean.GoodsBean;
  * 时间：2016/10/17 11:16
  */
 public class NewGoodsAdapter extends RecyclerView.Adapter {
-    List<GoodsBean> mList;
+    List<NewGoodsBean> mList;
     Context mContext;
+
+    public NewGoodsAdapter(Context context, List<NewGoodsBean> list) {
+        mContext = context;
+        mList = list;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder=null;
@@ -39,9 +45,11 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
             vh.mtv_footer.setText("加载更多数据");
             return;
         }
-        GoodsBean goods = mList.get(position);
+        NewGoodsBean goods = mList.get(position);
         GoodsItem vh= (GoodsItem) holder;
-        vh.mtv_goodsPrice.setText(goods.get);
+        vh.mtv_goodsPrice.setText(goods.getCurrencyPrice());
+        vh.mtv_goodsName.setText(goods.getGoodsName());
+        vh.mimg_goods.setImageResource(R.mipmap.goods_thumb);
 
     }
 
