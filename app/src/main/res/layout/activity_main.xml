@@ -4,14 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerLayout"
-        android:layout_above="@id/hintLine"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/hintLine">
 
-    <RadioGroup
-        android:id="@+id/rg_menu"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerLayout"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomlinear"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -81,12 +89,12 @@
             android:text="个人中心"
             />
 
-    </RadioGroup>
+    </LinearLayout>
 
     <View
         android:id="@+id/hintLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@id/rg_menu"
+        android:layout_above="@id/bottomlinear"
         android:background="#ccf"></View>
 </RelativeLayout>
