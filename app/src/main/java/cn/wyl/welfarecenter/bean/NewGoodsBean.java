@@ -8,6 +8,31 @@ package cn.wyl.welfarecenter.bean;
 public class NewGoodsBean {
 
 
+    @Override
+    public String toString() {
+        return "NewGoodsBean{" +
+                "addTime=" + addTime +
+                ", id=" + id +
+                ", goodsId=" + goodsId +
+                ", catId=" + catId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsEnglishName='" + goodsEnglishName + '\'' +
+                ", goodsBrief='" + goodsBrief + '\'' +
+                ", shopPrice='" + shopPrice + '\'' +
+                ", currencyPrice='" + currencyPrice + '\'' +
+                ", promotePrice='" + promotePrice + '\'' +
+                ", rankPrice='" + rankPrice + '\'' +
+                ", isPromote=" + isPromote +
+                ", goodsThumb='" + goodsThumb + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", colorId=" + colorId +
+                ", colorName='" + colorName + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", colorUrl='" + colorUrl + '\'' +
+                ", promote='" + promote + '\'' +
+                '}';
+    }
+
     /**
      * id : 1
      * goodsId : 7672
@@ -30,6 +55,8 @@ public class NewGoodsBean {
      * promote : false    
      */
 
+
+
     private int id;
     private int goodsId;
     private int catId;
@@ -47,8 +74,8 @@ public class NewGoodsBean {
     private String colorName;
     private String colorCode;
     private String colorUrl;
-    private int addTime;
     private String promote;
+    private String addTime;
 
     public int getId() {
         return id;
@@ -186,11 +213,11 @@ public class NewGoodsBean {
         this.colorUrl = colorUrl;
     }
 
-    public int getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(int addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 

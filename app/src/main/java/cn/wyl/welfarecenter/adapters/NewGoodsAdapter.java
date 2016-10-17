@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
+import cn.wyl.welfarecenter.utils.ImageLoader;
 
 /**
  * 项目名称：WelfareCenter
@@ -21,52 +23,81 @@ import cn.wyl.welfarecenter.bean.NewGoodsBean;
 public class NewGoodsAdapter extends RecyclerView.Adapter {
     List<NewGoodsBean> mList;
     Context mContext;
+    private String isMore;
+    private String mFooter;
+
+    public String getIsMore() {
+        return isMore;
+    }
+
+    public void setIsMore(String isMore) {
+        this.isMore = isMore;
+    }
 
     public NewGoodsAdapter(Context context, List<NewGoodsBean> list) {
         mContext = context;
-        mList = list;
+        mList = new ArrayList<>();
+        mList.addAll(list);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder holder=null;
-        if (viewType==I.TYPE_FOOTER){
-            holder=new FooterItem(View.inflate(mContext,R.layout.footer_item,null));
-        }else
-        holder=new GoodsItem(View.inflate(mContext,R.layout.newgoods,null));
+        RecyclerView.ViewHolder holder = null;
+        if (viewType == I.TYPE_FOOTER) {
+            holder = new FooterItem(View.inflate(mContext, R.layout.footer_item, null));
+        } else
+            holder = new GoodsItem(View.inflate(mContext, R.layout.newgoods, null));
 
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (position==getItemCount()-1){
-            FooterItem vh= (FooterItem) holder;
+        if (position == getItemCount() - 1) {
+            FooterItem vh = (FooterItem) holder;
             vh.mtv_footer.setText("加载更多数据");
             return;
         }
         NewGoodsBean goods = mList.get(position);
-        GoodsItem vh= (GoodsItem) holder;
+        GoodsItem vh = (GoodsItem) holder;
         vh.mtv_goodsPrice.setText(goods.getCurrencyPrice());
         vh.mtv_goodsName.setText(goods.getGoodsName());
-        vh.mimg_goods.setImageResource(R.mipmap.goods_thumb);
 
+        ImageLoader.downloadImg(mContext,vh.mimg_goods,goods.getGoodsThumb());
     }
 
     @Override
     public int getItemCount() {
-        return mList==null?1:mList.size()+1;
+        return mList == null ? 1 : mList.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
 
-        if (position==getItemCount()-1){
+        if (position == getItemCount() - 1) {
             return I.TYPE_FOOTER;
 
-        }
-        else return I.TYPE_ITEM;
+        } else return I.TYPE_ITEM;
     }
+
+    public void initData(ArrayList<NewGoodsBean> list) {
+        if (mList != null) {
+            mList.clear();
+        }
+
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void initAllData(ArrayList<NewGoodsBean> list) {
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void setFooter(String footer) {
+        mFooter = footer;
+    }
+
 
     class GoodsItem extends RecyclerView.ViewHolder {
 
