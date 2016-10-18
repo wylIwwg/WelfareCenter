@@ -1,24 +1,29 @@
 package cn.wyl.welfarecenter.bean;
 
-/**
- * 项目名称：WelfareCenter
- * 创建人：wyl
- * 时间：2016/10/13 19:13
- */
-public class ColorBean {
+import java.io.Serializable;
 
+public class ColorBean implements Serializable {
+
+    /**
+     * catId : 262
+     * colorId : 1
+     * colorName : 灰色
+     * colorCode : #959595
+     * colorImg : 121.197.1.20/images/201309/1380064809234134935.jpg
+     */
+
+    private int catId;
     private int colorId;
     private String colorName;
     private String colorCode;
     private String colorImg;
-    private String colorUrl;
 
-    public String getColorCode() {
-        return colorCode;
+    public int getCatId() {
+        return catId;
     }
 
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     public int getColorId() {
@@ -29,14 +34,6 @@ public class ColorBean {
         this.colorId = colorId;
     }
 
-    public String getColorImg() {
-        return colorImg;
-    }
-
-    public void setColorImg(String colorImg) {
-        this.colorImg = colorImg;
-    }
-
     public String getColorName() {
         return colorName;
     }
@@ -45,11 +42,30 @@ public class ColorBean {
         this.colorName = colorName;
     }
 
-    public String getColorUrl() {
-        return colorUrl;
+    public String getColorCode() {
+        return colorCode;
     }
 
-    public void setColorUrl(String colorUrl) {
-        this.colorUrl = colorUrl;
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public String getColorImg() {
+        return colorImg;
+    }
+
+    public void setColorImg(String colorImg) {
+        this.colorImg = colorImg;
+    }
+
+    @Override
+    public String toString() {
+        return "ColorBean{" +
+                "catId=" + catId +
+                ", colorId=" + colorId +
+                ", colorName='" + colorName + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", colorImg='" + colorImg + '\'' +
+                '}';
     }
 }

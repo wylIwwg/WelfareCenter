@@ -1,15 +1,10 @@
 package cn.wyl.welfarecenter.bean;
 
-/**
- * 项目名称：WelfareCenter
- * 创建人：wyl
- * 时间：2016/10/13 18:59
- */
 public class MessageBean {
 
     /**
      * success : true
-     * msg : 收藏成功
+     * msg : 添加收藏成功
      */
 
     private boolean success;
@@ -29,5 +24,13 @@ public class MessageBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageBean{" +
+                "success=" + success +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }
