@@ -23,15 +23,16 @@ import cn.wyl.welfarecenter.utils.ImageLoader;
 public class NewGoodsAdapter extends RecyclerView.Adapter {
   static   List<NewGoodsBean> mList;
     Context mContext;
-    private String isMore;
-    private String mFooter;
+    boolean isMore;
 
-    public String getIsMore() {
+
+    public boolean isMore() {
         return isMore;
     }
 
-    public void setIsMore(String isMore) {
-        this.isMore = isMore;
+    public void setMore(boolean more) {
+        isMore = more;
+        notifyDataSetChanged();
     }
 
     public NewGoodsAdapter(Context context, List<NewGoodsBean> list) {
@@ -65,7 +66,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (position == getItemCount() - 1) {
             FooterItem vh = (FooterItem) holder;
-            vh.mtv_footer.setText("加载更多数据");
+            vh.mtv_footer.setText(getFooter());
             return;
         }
         NewGoodsBean goods = mList.get(position);
@@ -84,6 +85,10 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    private int getFooter() {
+        return  isMore?R.string.load_more:R.string.no_more;
     }
 
     @Override
@@ -114,9 +119,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void setFooter(String footer) {
-        mFooter = footer;
-    }
+
 
 
     class GoodsItem extends RecyclerView.ViewHolder {

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.activity.GoodsDetailsActivity;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.net.NetDao;
+import cn.wyl.welfarecenter.utils.CommonUtils;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
@@ -76,7 +77,7 @@ public class NewGoodsFragment extends Fragment {
 
                 int id = mList.get(position).getGoodsId();
                 Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -91,8 +92,6 @@ public class NewGoodsFragment extends Fragment {
                 mTvRefresh.setVisibility(View.VISIBLE);
 
                 initData(false);
-                mTvRefresh.setVisibility(View.GONE);
-                mSwiper.setRefreshing(false);
             }
         });
 
@@ -110,11 +109,10 @@ public class NewGoodsFragment extends Fragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 position = mGridLayoutManager.findLastVisibleItemPosition();
-                if (position >= mNewGoodsAdapter.getItemCount() - 1) {
+                if (position >= mNewGoodsAdapter.getItemCount() - 1 && newState == RecyclerView.SCROLL_STATE_IDLE
+                        && mNewGoodsAdapter.isMore()) {
                     pageId++;
                     initData(true);
-                } else {
-                    mNewGoodsAdapter.setFooter("没有数据了");
                 }
             }
         });
@@ -125,34 +123,36 @@ public class NewGoodsFragment extends Fragment {
         NetDao.downLoadNewGoods(getActivity(), pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
-                ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
-                mList = list;
-                Log.d("main", "" + list.size());
-                if (isAll) {
-                    mNewGoodsAdapter.initAllData(list);
-                } else
-                    mNewGoodsAdapter.initData(list);
-
+                mSwiper.setRefreshing(false);
+                mTvRefresh.setVisibility(View.GONE);
+                mNewGoodsAdapter.setMore(true);
+                if (result != null && result.length > 0) {
+                    ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
+                    mList = list;
+                    if (isAll) {
+                        mNewGoodsAdapter.initAllData(list);
+                    } else {
+                        mNewGoodsAdapter.initData(list);
+                    }
+                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
+                        mNewGoodsAdapter.setMore(false);
+                    }
+                } else {
+                    mNewGoodsAdapter.setMore(false);
+                }
 
             }
 
             @Override
             public void onError(String error) {
-
+                mSwiper.setRefreshing(false);
+                mTvRefresh.setVisibility(View.GONE);
+                CommonUtils.showLongToast(error);
+                mNewGoodsAdapter.setMore(false);
             }
         });
 
     }
 
-    private ArrayList<NewGoodsBean> downLoadData() {
-        ArrayList<NewGoodsBean> list = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            NewGoodsBean goods = new NewGoodsBean();
-            goods.setCurrencyPrice("12333");
-            goods.setGoodsName("大衣" + i);
-            list.add(goods);
-        }
-        return list;
-    }
 
 }
