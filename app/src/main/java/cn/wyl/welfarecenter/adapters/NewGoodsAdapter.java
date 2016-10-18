@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import cn.wyl.welfarecenter.utils.ImageLoader;
  * 时间：2016/10/17 11:16
  */
 public class NewGoodsAdapter extends RecyclerView.Adapter {
-  static   List<NewGoodsBean> mList;
+    static List<NewGoodsBean> mList;
     Context mContext;
     boolean isMore;
 
@@ -41,13 +42,14 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
-    public interface OnItemCKListener{
-        void onItemClicK(View view,int position);
+    public interface OnItemCKListener {
+        void onItemClicK(View view, int position);
     }
+
     private OnItemCKListener mOnItemCKListener;
 
-    public  void  setOnItemCKListener(OnItemCKListener mOnItemCKListener){
-        this.mOnItemCKListener=mOnItemCKListener;
+    public void setOnItemCKListener(OnItemCKListener mOnItemCKListener) {
+        this.mOnItemCKListener = mOnItemCKListener;
     }
 
 
@@ -71,24 +73,25 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         }
         NewGoodsBean goods = mList.get(position);
         GoodsItem vh = (GoodsItem) holder;
-        vh.mtv_goodsPrice.setText(goods.getCurrencyPrice());
-        vh.mtv_goodsName.setText(goods.getGoodsName());
+        vh.mTvGoodsPrice.setText(goods.getCurrencyPrice());
+        vh.mTvGoodsName.setText(goods.getGoodsName());
+        vh.mLayoutGoods.setTag(goods.getGoodsId());
 
-        ImageLoader.downloadImg(mContext,vh.mimg_goods,goods.getGoodsThumb());
+        ImageLoader.downloadImg(mContext, vh.mImgGoods, goods.getGoodsThumb());
 
-        if (mOnItemCKListener!=null){
+        if (mOnItemCKListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos=holder.getLayoutPosition();
-                    mOnItemCKListener.onItemClicK(holder.itemView,pos);
+                    int pos = holder.getLayoutPosition();
+                    mOnItemCKListener.onItemClicK(holder.itemView, pos);
                 }
             });
         }
     }
 
     private int getFooter() {
-        return  isMore?R.string.load_more:R.string.no_more;
+        return isMore ? R.string.load_more : R.string.no_more;
     }
 
     @Override
@@ -120,18 +123,19 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     }
 
 
-
-
     class GoodsItem extends RecyclerView.ViewHolder {
-
-        ImageView mimg_goods;
-        TextView mtv_goodsName, mtv_goodsPrice;
+        ImageView mImgGoods;
+        TextView mTvGoodsName;
+        TextView mTvGoodsPrice;
+        LinearLayout mLayoutGoods;
 
         public GoodsItem(View itemView) {
             super(itemView);
-            mimg_goods = (ImageView) itemView.findViewById(R.id.img_goods);
-            mtv_goodsName = (TextView) itemView.findViewById(R.id.tv_goodsName);
-            mtv_goodsPrice = (TextView) itemView.findViewById(R.id.tv_goodsPrice);
+            mImgGoods= (ImageView) itemView.findViewById(R.id.img_goods);
+            mTvGoodsName= (TextView) itemView.findViewById(R.id.tv_goodsName);
+            mTvGoodsPrice= (TextView) itemView.findViewById(R.id.tv_goodsPrice);
+            mLayoutGoods= (LinearLayout) itemView.findViewById(R.id.layout_goods);
+
         }
     }
 

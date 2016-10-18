@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         groupButton[2] = mRbCategory;
         groupButton[3] = mRbCart;
         groupButton[4] = mRbCenter;
+        groupButton[0].setChecked(true);
+        mFragments[0]=new NewGoodsFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,mFragments[0]).show(mFragments[0]).commit();
     }
 
 

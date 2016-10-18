@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -52,22 +53,25 @@
 
 
         <TextView
-            android:layout_margin="10dp"
             android:id="@+id/tv_goodsEngName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Metr"
-            android:textSize="20sp"/>
+            android:text="MetSAQFr"
+            android:textSize="20sp"
+            android:layout_alignLeft="@+id/tv_desc"
+            android:layout_alignStart="@+id/tv_desc"
+            android:layout_above="@+id/tv_goodsName"/>
 
         <TextView
-            android:layout_margin="5dp"
             android:id="@+id/tv_goodsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_goodsEngName"
-            android:layout_marginTop="10dp"
             android:text="草莓当"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:layout_above="@+id/relativeLayout"
+            android:layout_alignLeft="@+id/tv_desc"
+            android:layout_alignStart="@+id/tv_desc"/>
 
         <TextView
             android:id="@+id/tv_goodsPrice"
@@ -80,21 +84,47 @@
             android:layout_alignRight="@+id/tv_desc"
             android:layout_alignEnd="@+id/tv_desc"/>
 
-        <ImageView
-            android:id="@+id/img_goods"
-            android:layout_width="250dp"
-            android:layout_height="200dp"
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="250dp"
             android:layout_centerInParent="true"
-            android:src="@mipmap/goods_thumb"/>
+            android:orientation="vertical"
+            android:id="@+id/relativeLayout">
+
+            <cn.wyl.welfarecenter.views.SlideAutoLoopView
+                android:id="@+id/sal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/good_detail_bg_white">
+
+            </cn.wyl.welfarecenter.views.SlideAutoLoopView>
+
+            <cn.wyl.welfarecenter.views.FlowIndicator
+                android:id="@+id/indicator"
+                app:count="4"
+                app:focus="0"
+                app:focus_color="@color/good_detaul_flow_indicator_focus"
+                app:normal_color="@color/gray_normal"
+                app:r="5dp"
+                app:space="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
 
         <TextView
-            android:layout_margin="20dp"
-            android:layout_below="@id/img_goods"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
             android:id="@+id/tv_desc"
-            android:textSize="18sp"
-            android:text="安徽省道具卡积分是哦千万人啊好了发"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:text="安徽省道具卡积分是哦千万人啊好了发"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/relativeLayout"/>
 
     </RelativeLayout>
 </LinearLayout>

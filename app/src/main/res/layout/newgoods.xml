@@ -2,21 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
+              android:layout_margin="15dp"
+              android:id="@+id/layout_goods"
               android:orientation="vertical">
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/img_goods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/goods_thumb"/>
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/nopic"/>
 
     <TextView
         android:text="羽绒服"
+        android:textSize="18sp"
+        android:gravity="center"
         android:id="@+id/tv_goodsName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:text="200"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#f00"
         android:id="@+id/tv_goodsPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

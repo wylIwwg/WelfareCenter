@@ -26,7 +26,7 @@ public class NetDao {
 
     public static void downGoodsDetails(Context context, int goodId, OkHttpUtils.OnCompleteListener<GoodsDetailsBean> listener){
         OkHttpUtils utils=new OkHttpUtils(context);
-        utils.setRequestUrl(I.REQUEST_FIND_GOODS_DETAILS)
+        utils.setRequestUrl(I.REQUEST_FIND_GOOD_DETAILS)
                 .addParam(I.GoodsDetails.KEY_GOODS_ID,goodId+"")
                 .targetClass(GoodsDetailsBean.class)
                 .execute(listener);

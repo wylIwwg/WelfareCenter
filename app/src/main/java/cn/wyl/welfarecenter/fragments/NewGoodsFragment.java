@@ -25,6 +25,7 @@ import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.CommonUtils;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
+import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
 
 /**
@@ -64,6 +65,7 @@ public class NewGoodsFragment extends Fragment {
         mRecycleLayout.setAdapter(mNewGoodsAdapter);
         mRecycleLayout.setHasFixedSize(true);
         mRecycleLayout.setLayoutManager(mGridLayoutManager);
+        mRecycleLayout.addItemDecoration(new SpaceItemDecoration(12));
 
         setListeners();
         return view;
@@ -75,9 +77,9 @@ public class NewGoodsFragment extends Fragment {
             @Override
             public void onItemClicK(View view, int position) {
 
-                int id = mList.get(position).getGoodsId();
+                int id = (int) view.getTag();
                 Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, id);
                 startActivity(intent);
             }
         });
