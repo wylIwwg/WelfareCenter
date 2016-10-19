@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,8 +17,11 @@ import butterknife.ButterKnife;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.adapters.BoutiqueAdapter;
 import cn.wyl.welfarecenter.bean.BoutiqueBean;
+import cn.wyl.welfarecenter.common.CommonAdapter;
+import cn.wyl.welfarecenter.common.CommonViewHolder;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
+import cn.wyl.welfarecenter.utils.ImageLoader;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 public class BoutiqueFragment extends Fragment {
@@ -27,6 +32,9 @@ public class BoutiqueFragment extends Fragment {
     LinearLayoutManager mLayoutManager;
     BoutiqueAdapter mAdapter;
     ArrayList<BoutiqueBean> mList;
+
+    CommonAdapter<BoutiqueBean> testAdapter;
+    ArrayList<BoutiqueBean> testList;
 
     public BoutiqueFragment() {
         // Required empty public constructor
@@ -49,7 +57,8 @@ public class BoutiqueFragment extends Fragment {
             public void onSuccess(BoutiqueBean[] result) {
                 if (result.length>0&&result!=null){
                     ArrayList<BoutiqueBean> boutis = ConvertUtils.array2List(result);
-                    mAdapter.initData(boutis);
+                   // mAdapter.initData(boutis);
+                    testAdapter.initData(boutis);
                 }
             }
 
@@ -63,8 +72,26 @@ public class BoutiqueFragment extends Fragment {
     private void initView() {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mList=new ArrayList<>();
+
+        testList=new ArrayList<>();
+        testAdapter=new CommonAdapter<BoutiqueBean>(getActivity(),testList,R.layout.item_boutique) {
+            @Override
+            public void convert(CommonViewHolder holder, BoutiqueBean boutiqueBean) {
+                ImageView mImgBoutiGoods=holder.getView(R.id.img_bouti_goods);
+                TextView mTvBoutiTitle=holder.getView(R.id.tv_bouti_title);
+                TextView mTvBoutiName=holder.getView(R.id.tv_bouti_name);
+                TextView mTvBoutiDec=holder.getView(R.id.tv_bouti_dec);
+                mTvBoutiTitle.setText(boutiqueBean.getTitle());
+                mTvBoutiName.setText(boutiqueBean.getName());
+                mTvBoutiDec.setText(boutiqueBean.getDescription());
+                ImageLoader.downloadImg(mContext,mImgBoutiGoods,boutiqueBean.getImageurl());
+
+            }
+        };
+
         mAdapter=new BoutiqueAdapter(getActivity(),mList);
-        mRecyBoutique.setAdapter(mAdapter);
+
+        mRecyBoutique.setAdapter(testAdapter);
         mRecyBoutique.setLayoutManager(mLayoutManager);
 
     }
