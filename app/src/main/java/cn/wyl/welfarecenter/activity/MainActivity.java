@@ -3,7 +3,6 @@ package cn.wyl.welfarecenter.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ import cn.wyl.welfarecenter.fragments.PersonFragment;
 /**
  * 添加闪屏
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.rb_newgoods)
     RadioButton mRbNewgoods;
     @BindView(R.id.rb_boutique)
@@ -138,4 +137,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

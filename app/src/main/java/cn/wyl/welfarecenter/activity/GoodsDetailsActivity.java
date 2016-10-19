@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ import cn.wyl.welfarecenter.views.SlideAutoLoopView;
  * 创建人：wyl
  * 时间：2016/10/17 19:01
  */
-public class GoodsDetailsActivity extends AppCompatActivity {
+public class GoodsDetailsActivity extends BaseActivity {
     Context mContext;
     @BindView(R.id.img_back)
     ImageView mImgBack;
@@ -88,12 +87,6 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         MFGT.finish(this);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        MFGT.finish(this);
-    }
 
     private int getAlbumCount(GoodsDetailsBean result) {
         if (result.getProperties() != null && result.getProperties().length > 0) {

@@ -47,7 +47,20 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
     }
 
     public void initData(ArrayList<T> list) {
+        mDatas.clear();
         mDatas.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public void initAllData(ArrayList<T> goodsBeen) {
+        mDatas.addAll(goodsBeen);
+        notifyDataSetChanged();
+    }
+
+    public interface MultiItemTypeSupport<T>
+    {
+        int getLayoutId(int itemType);
+
+        int getItemViewType(int position, T t);
     }
 }
