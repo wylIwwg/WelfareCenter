@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:orientation="vertical">
+<RelativeLayout
+    android:id="@+id/relaLyaout_boutique"
+    android:background="#fff"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/img_bouti_goods"
@@ -10,36 +14,38 @@
         android:layout_height="250dp"
         android:scaleType="fitXY"
         android:src="@drawable/nopic"/>
+
     <TextView
-        android:textColor="#f00"
+        android:id="@+id/tv_bouti_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_margin="5dp"
         android:layout_toRightOf="@+id/img_bouti_goods"
-        android:textSize="20sp"
-        android:id="@+id/tv_bouti_title"
         android:text="不一样的新妆，不一样的美丽"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:textColor="#f00"
+        android:textSize="20sp"/>
 
 
     <TextView
-        android:textColor="#000"
-        android:layout_margin="5dp"
-        android:textSize="20dp"
-        android:text="拯救头发，美丽新妆"
-        android:layout_below="@id/tv_bouti_title"
-        android:layout_toRightOf="@id/img_bouti_goods"
         android:id="@+id/tv_bouti_name"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp"
+        android:layout_below="@id/tv_bouti_title"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/img_bouti_goods"
+        android:text="拯救头发，美丽新妆"
+        android:textColor="#000"
+        android:textSize="20dp"/>
+
     <TextView
-        android:textSize="20sp"
-        android:text="快速增长修护预防脱发洗发水让头发健康快速生长更美丽"
         android:id="@+id/tv_bouti_dec"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/img_bouti_goods"
         android:layout_alignLeft="@+id/tv_bouti_name"
-        android:layout_alignStart="@+id/tv_bouti_name"/>
+        android:layout_alignStart="@+id/tv_bouti_name"
+        android:text="快速增长修护预防脱发洗发水让头发健康快速生长更美丽"
+        android:textSize="20sp"/>
 
 
 </RelativeLayout>

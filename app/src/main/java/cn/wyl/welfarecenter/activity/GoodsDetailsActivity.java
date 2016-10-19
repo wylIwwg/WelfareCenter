@@ -51,7 +51,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.goodsdetails);
+        setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         int goodid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);

@@ -122,7 +122,7 @@ public class NewGoodsFragment extends Fragment {
 
     private void initData(final boolean isAll) {
 
-        NetDao.downLoadNewGoods(getActivity(), pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDao.downNeworBoutiqueGoods(getActivity(), 0,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mSwiper.setRefreshing(false);

@@ -57,9 +57,9 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
         if (viewType == I.TYPE_FOOTER) {
-            holder = new FooterItem(View.inflate(mContext, R.layout.footer_item, null));
+            holder = new FooterItem(View.inflate(mContext, R.layout.item_footer, null));
         } else
-            holder = new GoodsItem(View.inflate(mContext, R.layout.newgoods, null));
+            holder = new GoodsItem(View.inflate(mContext, R.layout.item_newgoods, null));
 
         return holder;
     }

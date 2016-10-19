@@ -15,10 +15,10 @@ import cn.wyl.welfarecenter.utils.OkHttpUtils;
  * 时间：2016/10/17 15:18
  */
 public class NetDao {
-    public static void downLoadNewGoods(Context context, int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
+    public static void downNeworBoutiqueGoods(Context context, int catId, int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
         OkHttpUtils utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
-                .addParam(I.NewAndBoutiqueGoods.CAT_ID, I.CAT_ID + "")
+                .addParam(I.NewAndBoutiqueGoods.CAT_ID, catId + "")
                 .addParam(I.PAGE_ID, pageId + "")
                 .addParam(I.PAGE_SIZE, I.PAGE_SIZE_DEFAULT + "")
                 .targetClass(NewGoodsBean[].class)
