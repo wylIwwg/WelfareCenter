@@ -5,8 +5,8 @@
              tools:context="cn.wyl.welfarecenter.fragments.BoutiqueFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy_boutique"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="精品页面"/>

@@ -3,6 +3,8 @@ package cn.wyl.welfarecenter.net;
 import android.content.Context;
 
 import cn.wyl.welfarecenter.I;
+import cn.wyl.welfarecenter.bean.BoutiqueBean;
+import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
@@ -32,4 +34,17 @@ public class NetDao {
                 .execute(listener);
     }
 
+    public  static  void  downBoutique(Context context, OkHttpUtils.OnCompleteListener<BoutiqueBean[]> listener){
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_BOUTIQUES)
+                .targetClass(BoutiqueBean[].class)
+                .execute(listener);
+    }
+
+    public  static  void downCategoryGroup(Context context, OkHttpUtils.OnCompleteListener<CategoryGroupBean[]> listener){
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_GROUP)
+                .targetClass(CategoryGroupBean[].class)
+                .execute(listener);
+    }
 }
