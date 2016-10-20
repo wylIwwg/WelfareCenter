@@ -60,6 +60,7 @@ public class CategoryGoodsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_goods);
         ButterKnife.bind(this);
+        //获取传过来的值
         Intent intent = getIntent();
         catId = intent.getIntExtra(I.CategoryChild.CAT_ID, 0);
         cateName=intent.getStringExtra(I.CategoryGroup.NAME);
@@ -75,6 +76,7 @@ public class CategoryGoodsActivity extends BaseActivity {
     }
 
     private void initView() {
+        //使用自定义布局文件设置内容
         mBtnCatChildFilter.setText(cateName);
         mBtnCatChildFilter.setOnCatFilterClickListener(cateName,listChild);
 
@@ -165,6 +167,10 @@ public class CategoryGoodsActivity extends BaseActivity {
     int sortBy = I.SORT_BY_ADDTIME_ASC;
     boolean isTime, isPrice;
 
+    /**
+     * 根据布尔值判断箭头的走向，并设置排序flag
+     * @param view
+     */
     @OnClick({R.id.btn_price, R.id.btn_time, R.id.img_back})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -188,14 +194,9 @@ public class CategoryGoodsActivity extends BaseActivity {
             case R.id.img_back:
                 MFGT.finish(this);
                 break;
-
-
         }
+        //通知适配器更新排序
         mNewGoodsAdapter.setSortBy(sortBy);
     }
 
-    @OnClick(R.id.btnCatChildFilter)
-    public void onClick() {
-
-    }
 }

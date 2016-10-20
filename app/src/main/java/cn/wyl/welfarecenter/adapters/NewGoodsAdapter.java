@@ -153,13 +153,15 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     int sortBy = I.SORT_BY_ADDTIME_ASC;
 
 
-
     public void setSortBy(int sortBy) {
         this.sortBy = sortBy;
         sortBy();
         notifyDataSetChanged();
     }
 
+    /**
+     * 根据sortBy的值将List排序
+     */
     private void sortBy() {
 
         Collections.sort(mList, new Comparator<NewGoodsBean>() {
@@ -169,26 +171,22 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
             public int compare(NewGoodsBean left, NewGoodsBean right) {
                 switch (sortBy) {
                     case I.SORT_BY_ADDTIME_ASC:
-
                         result = (int) (Long.valueOf(left.getAddTime()) - Long.valueOf(right.getAddTime()));
-
                         break;
                     case I.SORT_BY_ADDTIME_DESC:
-
                         result = (int) (Long.valueOf(right.getAddTime()) - Long.valueOf(left.getAddTime()));
                         break;
                     case I.SORT_BY_PRICE_ASC:
                         result = getPrice(left.getCurrencyPrice()) - getPrice(right.getCurrencyPrice());
-
                         break;
                     case I.SORT_BY_PRICE_DESC:
                         result = getPrice(right.getCurrencyPrice()) - getPrice(left.getCurrencyPrice());
-
                         break;
                 }
                 return result;
             }
 
+            //获取数值型的价格
             protected int getPrice(String price) {
                 price = price.substring(price.indexOf("￥") + 1);
                 return Integer.parseInt(price);
