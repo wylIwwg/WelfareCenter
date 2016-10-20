@@ -125,6 +125,7 @@ public class BoutiqueCategoryActivity extends BaseActivity {
             }
         };
 
+
         mRecyBoutiqueCate.setLayoutManager(mManager);
         mRecyBoutiqueCate.setAdapter(mCommonAdapter);
         mRecyBoutiqueCate.addItemDecoration(new SpaceItemDecoration(10));

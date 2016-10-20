@@ -1,88 +1,91 @@
 package cn.wyl.welfarecenter.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.activity.CategoryGoodsActivity;
+import cn.wyl.welfarecenter.adapters.CategoryAdapter;
+import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
-import cn.wyl.welfarecenter.common.CommonAdapter;
-import cn.wyl.welfarecenter.common.CommonViewHolder;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
-import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 
 public class CategoryFragment extends Fragment {
+    CategoryAdapter mAdapter;
+    ArrayList<CategoryGroupBean> mGroup;
+    ArrayList<ArrayList<CategoryChildBean>> mChild;
+    int count = 0;
 
-    @BindView(R.id.category_recycler)
-    RecyclerView mCategoryRecycler;
-    LinearLayoutManager mManager;
-
-    ArrayList<CategoryGroupBean> mList;
-    CommonAdapter<CategoryGroupBean> mCommonAdapter;
-    ArrayList<String> test;
-
-
-    CommonAdapter<String> testAdapter;
+    @BindView(R.id.category_expand)
+    ExpandableListView mCategoryExpand;
 
     public CategoryFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         ButterKnife.bind(this, view);
-        initData();
-        initView();
+        mGroup = new ArrayList<>();
+        mChild = new ArrayList<>();
+        mAdapter = new CategoryAdapter(mChild, getActivity(), mGroup);
 
+        initGroupData();
+
+        initView();
         return view;
     }
 
-    private void initView() {
-        mCommonAdapter = new CommonAdapter<CategoryGroupBean>(getActivity(), mList, R.layout.item_category) {
-
+    private void initChildData(final int index) {
+        NetDao.downCategoryChild(getActivity(), mGroup.get(index).getId(), 1, new OkHttpUtils.OnCompleteListener<CategoryChildBean[]>() {
             @Override
-            public void convert(CommonViewHolder holder, CategoryGroupBean groupBean) {
-                TextView tv_name = holder.getView(R.id.tv_cate_title);
-                tv_name.setText(groupBean.getName());
-                ImageView img_ico = holder.getView(R.id.img_ico);
-                ImageLoader.downloadImg(getActivity(), img_ico, groupBean.getImageUrl());
+            public void onSuccess(CategoryChildBean[] result) {
+                count++;
+                if (result != null && result.length > 0) {
+                    ArrayList<CategoryChildBean> childBeen = ConvertUtils.array2List(result);
+                    mChild.set(index, childBeen);
+
+                    if (count == mGroup.size()) {
+                        mAdapter.initData(mGroup, mChild);
+                    }
+                }
             }
 
-        };
-        mManager = new LinearLayoutManager(getActivity());
-        mCategoryRecycler.setLayoutManager(mManager);
-        mCategoryRecycler.setAdapter(mCommonAdapter);
+            @Override
+            public void onError(String error) {
+                Log.e("main", error);
+            }
+        });
     }
 
-    private void initData() {
-        test = new ArrayList<>();
-        for (int index = 0; index < 10; index++) {
-            char c = (char) (67 + index);
-            test.add(String.valueOf(c));
-        }
-        mList = new ArrayList<>();
+
+    private void initGroupData() {
+
+
         NetDao.downCategoryGroup(getActivity(), new OkHttpUtils.OnCompleteListener<CategoryGroupBean[]>() {
             @Override
             public void onSuccess(CategoryGroupBean[] result) {
-                if (result.length > 0 && result != null) {
-                    mList = ConvertUtils.array2List(result);
-                    mCommonAdapter.initData(mList);
+                mGroup.addAll(ConvertUtils.array2List(result));
+                for (int i = 0; i < result.length; i++) {
+                    mChild.add(new ArrayList<CategoryChildBean>());
+                    initChildData(i);
                 }
             }
 
@@ -91,6 +94,26 @@ public class CategoryFragment extends Fragment {
 
             }
         });
+
+
+    }
+
+    private void initView() {
+
+        mCategoryExpand.setGroupIndicator(null);
+
+        mCategoryExpand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                Intent intent=new Intent(getActivity(), CategoryGoodsActivity.class);
+                intent.putExtra(I.CategoryChild.CAT_ID,mChild.get(groupPosition).get(childPosition).getId());
+                MFGT.startActivity(getActivity(),intent);
+
+                return false;
+            }
+        });
+        mCategoryExpand.setAdapter(mAdapter);
     }
 
 

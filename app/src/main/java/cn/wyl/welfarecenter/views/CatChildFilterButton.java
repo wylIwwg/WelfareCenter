@@ -46,7 +46,7 @@ public class CatChildFilterButton extends Button {
         mContext=context;
         mbtnTop=this;
         mExpandOff=true;
-        //initGridView();
+      //  initGridView();
     }
 
     private void initPopupWindow() {
@@ -55,7 +55,7 @@ public class CatChildFilterButton extends Button {
         if(mgvCategory.getAdapter().getCount()<16){
             mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         }else{
-    //        mPopupWindow.setHeight(Utils.px2dp(mContext, 200));
+            //mPopupWindow.setHeight(Utils.px2dp(mContext, 200));
         }
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);

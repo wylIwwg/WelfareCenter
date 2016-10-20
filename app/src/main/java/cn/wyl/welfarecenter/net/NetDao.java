@@ -4,6 +4,7 @@ import android.content.Context;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.bean.BoutiqueBean;
+import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
@@ -46,5 +47,28 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_GROUP)
                 .targetClass(CategoryGroupBean[].class)
                 .execute(listener);
+    }
+
+    public  static  void downCategoryChild(Context context, int catId, int pageId, OkHttpUtils.OnCompleteListener<CategoryChildBean[]> listener){
+
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_CHILDREN)
+                .addParam(I.CategoryChild.PARENT_ID,catId+"")
+                .addParam(I.PAGE_ID,pageId+"")
+                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .targetClass(CategoryChildBean[].class)
+                .execute(listener);
+    }
+
+    public  static void downCategoryGoods(Context context,int catId,int pageId,OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener){
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_GOODS_DETAILS)
+                .addParam("cat_id",catId+"")
+                .addParam(I.PAGE_ID,pageId+"")
+                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .targetClass(NewGoodsBean[].class)
+                .execute(listener);
+
+
     }
 }

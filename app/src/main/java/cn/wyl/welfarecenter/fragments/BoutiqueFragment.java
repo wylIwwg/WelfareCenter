@@ -33,14 +33,13 @@ public class BoutiqueFragment extends Fragment {
     RecyclerView mRecyBoutique;
 
     LinearLayoutManager mLayoutManager;
-    // BoutiqueAdapter mAdapter;
-    // ArrayList<BoutiqueBean> mList;
+
 
     CommonAdapter<BoutiqueBean> testAdapter;
     ArrayList<BoutiqueBean> testList;
 
     public BoutiqueFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -60,7 +59,7 @@ public class BoutiqueFragment extends Fragment {
             public void onSuccess(BoutiqueBean[] result) {
                 if (result.length > 0 && result != null) {
                     ArrayList<BoutiqueBean> boutis = ConvertUtils.array2List(result);
-                    // mAdapter.initData(boutis);
+
                     testAdapter.initData(boutis);
                 }
             }

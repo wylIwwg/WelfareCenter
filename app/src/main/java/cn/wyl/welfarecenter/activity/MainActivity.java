@@ -62,8 +62,12 @@ public class MainActivity extends BaseActivity {
         groupButton[4] = mRbCenter;
         groupButton[0].setChecked(true);
         //首次加载选中新品页面的Fragment
-        mFragments[0]=new NewGoodsFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,mFragments[0]).show(mFragments[0]).commit();
+        mFragments[0] = new NewGoodsFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.frameLayout, mFragments[0])
+
+                .show(mFragments[0]).commit();
     }
 
 

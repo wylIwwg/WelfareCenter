@@ -1,7 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+    >
 
-</LinearLayout>
+    <GridLayout
+
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qq_share"/>
+
+        <TextView
+            android:id="@+id/qq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="QQ"/>
+    </GridLayout>
+
+    <GridLayout
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:src="@drawable/wechat_share"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="微信"/>
+    </GridLayout>
+
+    <GridLayout
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:src="@drawable/sina_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="新浪微博"/>
+    </GridLayout>
+
+    <GridLayout
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tec_weibo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="腾讯微博"/>
+    </GridLayout>
+
+    <GridLayout
+        android:layout_marginTop="15dp"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/qq_zone_share"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="QQ空间"/>
+    </GridLayout>
+    <GridLayout
+        android:layout_marginTop="15dp"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/wechat_friend_share"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="朋友圈"/>
+    </GridLayout>
+    <GridLayout
+        android:layout_marginTop="15dp"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sms_share"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="消息"/>
+    </GridLayout>
+</GridLayout>

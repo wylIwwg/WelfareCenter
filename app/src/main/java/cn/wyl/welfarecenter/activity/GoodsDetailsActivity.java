@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +60,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         int goodid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
-        if (goodid==0){
+        if (goodid == 0) {
             MFGT.finish(this);
         }
         mContext = this;
@@ -62,7 +68,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     }
 
     private void initView(int goodid) {
-        NetDao.downGoodsDetails(this, goodid, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
+        NetDao.downGoodsDetails(mContext, goodid, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
                 if (result.getProperties() == null) {
@@ -82,11 +88,31 @@ public class GoodsDetailsActivity extends BaseActivity {
         });
 
     }
+
     @OnClick(R.id.img_back)
-    public void onBackActivity(){
+    public void onBackActivity() {
         MFGT.finish(this);
     }
 
+    @OnClick(R.id.img_share)
+    public void onShareGoods() {
+        View share = getLayoutInflater().inflate(R.layout.activity_share, null);
+        AlertDialog.Builder dialogShare = new AlertDialog.Builder(this).
+                setView(share).setNegativeButton(null, null).setPositiveButton(null, null);
+
+
+
+        WindowManager manager = getWindowManager();
+        Display display = manager.getDefaultDisplay();
+        Window window = dialogShare.create().getWindow();
+       /* WindowManager.LayoutParams params = window.getAttributes();
+        params.width = display.getWidth();
+        params.alpha = 0.7f;
+        window.setAttributes(params);*/
+        window.setGravity(Gravity.BOTTOM);
+        dialogShare.show();
+
+    }
 
     private int getAlbumCount(GoodsDetailsBean result) {
         if (result.getProperties() != null && result.getProperties().length > 0) {
