@@ -2,13 +2,14 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/list_background"
+             android:background="@drawable/background"
 
              tools:context="cn.wyl.welfarecenter.fragments.CategoryFragment">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/category_recycler"
+    <ExpandableListView
+
+        android:id="@+id/category_expand"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"

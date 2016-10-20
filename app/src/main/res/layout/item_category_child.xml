@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_margin="5dp"
     android:background="#fff"
-    android:orientation="horizontal">
+    android:padding="2dp"
+    >
 
     <RelativeLayout
-        android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/list_background"
+        android:padding="5dp">
 
 
         <ImageView
             android:id="@+id/img_ico"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="80dp"
             android:src="@drawable/nopic"/>
 
         <TextView
+
             android:id="@+id/tv_cate_title"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/img_ico"
             android:text="1111"
-            android:textColor="#000"
-            android:textSize="22sp"/>
-
-        <ImageView
-            android:id="@+id/img_arrow"
-            android:layout_width="32dp"
-            android:layout_height="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="15dp"
-            android:scaleType="fitXY"
-            />
+            android:textSize="20sp"/>
     </RelativeLayout>
+
 </RelativeLayout>
