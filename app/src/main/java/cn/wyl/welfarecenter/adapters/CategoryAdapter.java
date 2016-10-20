@@ -1,20 +1,26 @@
 package cn.wyl.welfarecenter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.activity.CategoryGoodsActivity;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.utils.MFGT;
 
 /**
  * 项目名称：WelfareCenter
@@ -95,7 +101,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_category_child, null);
@@ -104,10 +110,22 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        CategoryChildBean child=    getChild(groupPosition, childPosition);
+        final CategoryChildBean child=    getChild(groupPosition, childPosition);
         if (child != null) {
             holder.mTvCateTitle.setText(child.getName());
             ImageLoader.downloadImg(mContext, holder.mImgIco,child.getImageUrl());
+
+           holder.mLayoutChild.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent intent=new Intent(mContext, CategoryGoodsActivity.class);
+                   intent.putExtra(I.CategoryChild.CAT_ID,child.getId());
+                   intent.putExtra(I.CategoryGroup.NAME,mGroup.get(groupPosition).getName());
+                   intent.putExtra("childList",mChild.get(groupPosition));
+                   MFGT.startActivity((Activity) mContext,intent);
+               }
+           });
+
         }
         return convertView;
     }
@@ -160,6 +178,8 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         ImageView mImgIco;
         @BindView(R.id.tv_cate_title)
         TextView mTvCateTitle;
+        @BindView(R.id.catelayout_child)
+        RelativeLayout mLayoutChild;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

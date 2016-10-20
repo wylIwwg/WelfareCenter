@@ -1,6 +1,5 @@
 package cn.wyl.welfarecenter.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,21 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
-import cn.wyl.welfarecenter.activity.CategoryGoodsActivity;
 import cn.wyl.welfarecenter.adapters.CategoryAdapter;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
-import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 
@@ -102,17 +97,15 @@ public class CategoryFragment extends Fragment {
 
         mCategoryExpand.setGroupIndicator(null);
 
-        mCategoryExpand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-                Intent intent=new Intent(getActivity(), CategoryGoodsActivity.class);
-                intent.putExtra(I.CategoryChild.CAT_ID,mChild.get(groupPosition).get(childPosition).getId());
-                MFGT.startActivity(getActivity(),intent);
-
-                return false;
-            }
-        });
+//        mCategoryExpand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//
+//
+//
+//                return false;
+//            }
+//        });
         mCategoryExpand.setAdapter(mAdapter);
     }
 

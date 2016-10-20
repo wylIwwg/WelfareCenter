@@ -1,5 +1,6 @@
 package cn.wyl.welfarecenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
+import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.CommonUtils;
@@ -31,8 +32,6 @@ public class CategoryGoodsActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
     ImageView mImgBack;
-    @BindView(R.id.tv_bouti_cate_name)
-    TextView mTvBoutiCateName;
     @BindView(R.id.tv_refresh)
     TextView mTvRefresh;
     @BindView(R.id.recycleLayout)
@@ -54,43 +53,37 @@ public class CategoryGoodsActivity extends BaseActivity {
     @BindView(R.id.btnCatChildFilter)
     CatChildFilterButton mBtnCatChildFilter;
 
+    String cateName;
+    ArrayList<CategoryChildBean> listChild=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_goods);
         ButterKnife.bind(this);
-        catId = getIntent().getIntExtra(I.CategoryChild.CAT_ID, 0);
+        Intent intent = getIntent();
+        catId = intent.getIntExtra(I.CategoryChild.CAT_ID, 0);
+        cateName=intent.getStringExtra(I.CategoryGroup.NAME);
+        listChild= (ArrayList<CategoryChildBean>) intent.getSerializableExtra("childList");
         if (catId == 0) {
             finish();
         }
-        Toast.makeText(CategoryGoodsActivity.this, "" + catId, Toast.LENGTH_SHORT).show();
-        mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
-                getResources().getColor(R.color.google_green),
-                getResources().getColor(R.color.google_red),
-                getResources().getColor(R.color.google_yellow)
-        );
-        mGridLayoutManager = new GridLayoutManager(this, 2);
+
         mList = new ArrayList<>();
         initData(false);
         mNewGoodsAdapter = new NewGoodsAdapter(this, mList);
-        mRecycleLayout.setAdapter(mNewGoodsAdapter);
-        mRecycleLayout.setHasFixedSize(true);
-        mRecycleLayout.setLayoutManager(mGridLayoutManager);
-        mRecycleLayout.addItemDecoration(new SpaceItemDecoration(12));
-
         initView();
     }
 
     private void initView() {
+        mBtnCatChildFilter.setText(cateName);
+        mBtnCatChildFilter.setOnCatFilterClickListener(cateName,listChild);
+
         mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
         mGridLayoutManager = new GridLayoutManager(this, 2);
-        mList = new ArrayList<>();
-        initData(false);
-        mNewGoodsAdapter = new NewGoodsAdapter(this, mList);
         mRecycleLayout.setAdapter(mNewGoodsAdapter);
         mRecycleLayout.setHasFixedSize(true);
         mRecycleLayout.setLayoutManager(mGridLayoutManager);
@@ -203,6 +196,6 @@ public class CategoryGoodsActivity extends BaseActivity {
 
     @OnClick(R.id.btnCatChildFilter)
     public void onClick() {
-        
+
     }
 }
