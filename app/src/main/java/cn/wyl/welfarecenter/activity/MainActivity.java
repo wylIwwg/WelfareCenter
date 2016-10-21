@@ -1,8 +1,10 @@
 package cn.wyl.welfarecenter.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import cn.wyl.welfarecenter.fragments.CartFragment;
 import cn.wyl.welfarecenter.fragments.CategoryFragment;
 import cn.wyl.welfarecenter.fragments.NewGoodsFragment;
 import cn.wyl.welfarecenter.fragments.PersonFragment;
+import cn.wyl.welfarecenter.utils.MFGT;
 
 /**
  * 添加闪屏
@@ -108,6 +111,19 @@ public class MainActivity extends BaseActivity {
                     transaction.add(R.id.frameLayout, mFragments[4]);
                 } else
                     transaction.show(mFragments[4]);
+                new AlertDialog.Builder(this).setTitle("未登录").setMessage("请先登录...").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MFGT.startActivity(MainActivity.this, LoginActivity.class);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setIcon(R.drawable.quest).create().show();
+
+
                 break;
             case R.id.rb_cart:
                 index = 3;
