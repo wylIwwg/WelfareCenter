@@ -5,22 +5,16 @@ package cn.wyl.welfarecenter.utils;
  * Rights Reserved.
  */
 
+import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.widget.EditText;
 
-        import java.util.regex.Matcher;
-        import java.util.regex.Pattern;
-
-        import android.text.Editable;
-        import android.text.TextUtils;
-        import android.text.TextWatcher;
-        import android.widget.EditText;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * ClassName: PasswordTextWatcher <br/>
- * Function: TODO ADD FUNCTION. <br/>
- * Date:2015-5-27
- *
- * @author .yanbb
  * @version 0.1
  * @since MT 1.0
  */
@@ -36,11 +30,11 @@ public abstract class PasswordTextWatcher implements TextWatcher {
     private int mSelectionEnd;
     private EditText mPswEditText;
 
-    public PasswordTextWatcher() {};
+    public PasswordTextWatcher() {}
 
     public PasswordTextWatcher(EditText editText) {
         mPswEditText = editText;
-    };
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
