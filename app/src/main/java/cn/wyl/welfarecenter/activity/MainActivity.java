@@ -111,17 +111,7 @@ public class MainActivity extends BaseActivity {
                     transaction.add(R.id.frameLayout, mFragments[4]);
                 } else
                     transaction.show(mFragments[4]);
-                new AlertDialog.Builder(this).setTitle("未登录").setMessage("请先登录...").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MFGT.startActivity(MainActivity.this, LoginActivity.class);
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                }).setIcon(R.drawable.quest).create().show();
 
 
                 break;

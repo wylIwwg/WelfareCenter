@@ -97,15 +97,6 @@ public class CategoryFragment extends Fragment {
 
         mCategoryExpand.setGroupIndicator(null);
 
-//        mCategoryExpand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//
-//
-//
-//                return false;
-//            }
-//        });
         mCategoryExpand.setAdapter(mAdapter);
     }
 

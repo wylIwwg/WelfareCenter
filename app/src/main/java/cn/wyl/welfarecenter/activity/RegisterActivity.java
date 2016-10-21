@@ -54,29 +54,23 @@ public class RegisterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.img_back, R.id.et_regi_userName, R.id.et_regi_password, R.id.et_regi_password_comfirm, R.id.btn_register})
+    @OnClick({R.id.img_back, R.id.btn_register})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
-                break;
-            case R.id.et_regi_userName:
-
-                break;
-            case R.id.et_regi_password:
-                break;
-            case R.id.et_regi_password_comfirm:
+                MFGT.finish(this);
                 break;
             case R.id.btn_register:
                 String regexName = "^[a-zA-Z][a-zA-Z0-9_]{5,16}$";
                 String regexPasswprd = "[a-zA-Z0-9_]{5,16}$";
                 String regexNick = "^\\w{3,15}$";
 
-                String name = mEtRegiUserName.getText().toString().trim();
+                final String name = mEtRegiUserName.getText().toString().trim();
                 String nick = mEtRegiUserNick.getText().toString().trim();
                 String password = mEtRegiPassword.getText().toString().trim();
                 String passwordComfirm = mEtRegiPasswordComfirm.getText().toString();
                 if (!Pattern.matches(regexName, name)) {
-                    mEtRegiUserName.setError("用户名非法~");
+                    mEtRegiUserName.setError("用户名为空或非法~");
 
                     break;
                 }
@@ -85,20 +79,35 @@ public class RegisterActivity extends BaseActivity {
                     break;
                 }
                 if (!Pattern.matches(regexPasswprd, password)) {
-                    mEtRegiPassword.setError("密码非法~");
+                    mEtRegiPassword.setError("密码为空或非法~");
 
                     break;
                 }
                 if (!passwordComfirm.equals(password)) {
-                    Toast.makeText(RegisterActivity.this, "密码不一致", Toast.LENGTH_SHORT).show();
+                    mEtRegiPasswordComfirm.setError("密码不一致~");
                     break;
                 }
+                //判断是否已经存在该用户
+                NetDao.doFindUserByName(this, name, new OkHttpUtils.OnCompleteListener<Result>() {
+                    @Override
+                    public void onSuccess(Result result) {
+                        if (result.getRetCode() == 0 && result.isRetMsg()) {
+                            Toast.makeText(RegisterActivity.this, "用户名：" + name + " 已存在！", Toast.LENGTH_SHORT).show();
+                            mEtRegiUserName.requestFocus();
+                            return;
+                        }
+                    }
 
+                    @Override
+                    public void onError(String error) {
+                    }
+                });
+                //注册该用户
                 NetDao.doRegisterUser(this, name, nick, password, new OkHttpUtils.OnCompleteListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
 
-                        if (result.getRetCode()==0&&result.isRetMsg()){
+                        if (result.getRetCode() == 0 && result.isRetMsg()) {
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             intent.putExtra("userName", mEtRegiUserName.getText().toString());
                             MFGT.startActivity(RegisterActivity.this, intent);

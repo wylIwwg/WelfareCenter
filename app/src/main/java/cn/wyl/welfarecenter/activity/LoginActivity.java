@@ -36,13 +36,14 @@ public class LoginActivity extends BaseActivity {
     Button mBtnFreeRegister;
 
     String name;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        name=getIntent().getStringExtra("userName");
-        if (name!=null){
+        name = getIntent().getStringExtra("userName");
+        if (name != null) {
             mEtUserName.setText(name);
         }
     }
@@ -51,26 +52,65 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
+                MFGT.finish(this);
                 break;
             case R.id.btn_login:
-                final String name=mEtUserName.getText().toString();
-                NetDao.doFindUserByName(this, name, new OkHttpUtils.OnCompleteListener<Result>() {
-                    @Override
-                    public void onSuccess(Result result) {
+                final String name = mEtUserName.getText().toString();
+                String password = mEtPassword.getText().toString();
+                if (name.equals("")){
+                    Toast.makeText(LoginActivity.this, R.string.user_name_connot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (password.equals("")){
+                    Toast.makeText(LoginActivity.this, R.string.password_connot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                            Toast.makeText(LoginActivity.this, result.toString()+"登录成功！", Toast.LENGTH_SHORT).show();
+               // isExistName(name);
+                userLogin(name, password);
 
-                    }
-
-                    @Override
-                    public void onError(String error) {
-
-                    }
-                });
                 break;
             case R.id.btn_freeRegister:
-                MFGT.startActivity(LoginActivity.this,RegisterActivity.class);
+                MFGT.startActivity(LoginActivity.this, RegisterActivity.class);
                 break;
         }
+    }
+
+    private void userLogin(String name, String password) {
+        NetDao.doLogin(this, name, password, new OkHttpUtils.OnCompleteListener<Result>() {
+            @Override
+            public void onSuccess(Result result) {
+                if (result.getRetCode() == 0 && result.isRetMsg()) {
+                    Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+
+
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void isExistName(final String name) {
+        //判断是否已经存在该用户
+        NetDao.doFindUserByName(this, name, new OkHttpUtils.OnCompleteListener<Result>() {
+            @Override
+            public void onSuccess(Result result) {
+                if (result.getRetCode() == 0 && result.isRetMsg()) {
+                    Toast.makeText(LoginActivity.this, "用户名：" + name + " 不存在！", Toast.LENGTH_SHORT).show();
+                    mEtUserName.requestFocus();
+                    return;
+                }
+            }
+            @Override
+            public void onError(String error) {
+            }
+        });
     }
 }
