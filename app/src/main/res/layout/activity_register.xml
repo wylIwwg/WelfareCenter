@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/list_background"
               android:orientation="vertical">
 
     <LinearLayout
@@ -34,30 +35,50 @@
     </LinearLayout>
 
     <EditText
+        android:textColor="#000"
+        android:id="@+id/et_regi_userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:drawableRight="@drawable/userpic"
         android:hint="用户名"/>
+    <TextView
+        android:layout_marginLeft="50dp"
+        android:text="用户名必须以字母开头，长度在6~16之间，只能包含字符、数字和下划线"
+        android:id="@+id/tv_name_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <EditText
+        android:textColor="#000"
+        android:id="@+id/et_regi_userNick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:drawableRight="@drawable/nick_32"
+        android:drawableRight="@drawable/icon_account"
         android:hint="昵称"/>
 
     <EditText
+        android:textColor="#000"
+        android:id="@+id/et_regi_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:drawableRight="@drawable/passwordpic"
         android:hint="密码"/>
+    <TextView
+        android:layout_marginLeft="50dp"
+        android:text="密码为任意字符数字组合，长度在6~16之间"
+        android:id="@+id/tv_password_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <EditText
+        android:textColor="#000"
+        android:id="@+id/et_regi_password_comfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -65,28 +86,13 @@
         android:drawableRight="@drawable/passwordpic"
         android:hint="确认密码"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <ImageView
-            android:id="@+id/img_avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"/>
-
-        <EditText
-            android:id="@+id/ed_avatar_url"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img_avatar"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ed_avatar_url"/>
-    </RelativeLayout>
-
-
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background"
+        android:text="免费注册"
+        android:textSize="20sp"/>
 </LinearLayout>
