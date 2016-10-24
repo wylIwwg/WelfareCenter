@@ -61,8 +61,8 @@ public class RegisterActivity extends BaseActivity {
                 MFGT.finish(this);
                 break;
             case R.id.btn_register:
-                String regexName = "^[a-zA-Z][a-zA-Z0-9_]{5,16}$";
-                String regexPasswprd = "[a-zA-Z0-9_]{5,16}$";
+                String regexName = "^[a-zA-Z][a-zA-Z0-9_]{5,10}$";
+                String regexPasswprd = "[a-zA-Z0-9_]{5,10}$";
                 String regexNick = "^\\w{3,15}$";
 
                 final String name = mEtRegiUserName.getText().toString().trim();
