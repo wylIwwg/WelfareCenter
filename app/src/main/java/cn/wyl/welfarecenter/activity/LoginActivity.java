@@ -1,5 +1,6 @@
 package cn.wyl.welfarecenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -15,6 +16,7 @@ import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.Result;
 import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.dao.SharedPreferencesUtils;
 import cn.wyl.welfarecenter.dao.UserDao;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.MFGT;
@@ -88,12 +90,17 @@ public class LoginActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Result userresult = ResultUtils.getResultFromJson(result, UserAvatar.class);
                 if (userresult.getRetCode() == 0 && userresult.isRetMsg()) {
-                    Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+
                     UserAvatar user = (UserAvatar) userresult.getRetData();
                     UserDao dao = new UserDao(mContext);
                     boolean isSuccess = dao.saveUser(user);
                     if (isSuccess) {
                         WelfareCenterApplication.setUser(user);
+                        SharedPreferencesUtils.getInstance(mContext).saveUserInfo(user.getMuserName());
+                        Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("user",user);
+                        setResult(RESULT_OK,intent);
                         MFGT.finish(mContext);
                     }
                 } else {

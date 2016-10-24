@@ -1,10 +1,10 @@
 package cn.wyl.welfarecenter.activity;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -16,12 +16,12 @@ import butterknife.ButterKnife;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
+import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.fragments.BoutiqueFragment;
 import cn.wyl.welfarecenter.fragments.CartFragment;
 import cn.wyl.welfarecenter.fragments.CategoryFragment;
 import cn.wyl.welfarecenter.fragments.NewGoodsFragment;
 import cn.wyl.welfarecenter.fragments.PersonFragment;
-import cn.wyl.welfarecenter.utils.MFGT;
 
 /**
  * 添加闪屏
@@ -73,8 +73,9 @@ public class MainActivity extends BaseActivity {
                 .show(mFragments[0]).commit();
     }
 
-
+    static final int REQUEST_LOGIN = 102;
     int index;
+    RadioButton perbtn;
 
     public void onMenuButtonChanged(View view) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -105,13 +106,14 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case R.id.rb_center:
+                perbtn = (RadioButton) view;
+
                 index = 4;
                 if (mFragments[4] == null) {
                     mFragments[4] = new PersonFragment();
                     transaction.add(R.id.frameLayout, mFragments[4]);
                 } else
                     transaction.show(mFragments[4]);
-
 
 
                 break;
@@ -127,6 +129,19 @@ public class MainActivity extends BaseActivity {
         setRadioButtonStatus();
 
         transaction.commit();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOGIN) {
+            UserAvatar user = (UserAvatar) data.getSerializableExtra("user");
+            Log.e("main", user + "");
+            mFragments[4] = null;
+            onMenuButtonChanged(perbtn);
+        }
+
     }
 
     private void hideFragments(FragmentTransaction transaction) {

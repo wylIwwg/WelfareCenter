@@ -1,11 +1,13 @@
 package cn.wyl.welfarecenter.bean;
 
+import java.io.Serializable;
+
 /**
  * 项目名称：WelfareCenter
  * 创建人：wyl
  * 时间：2016/10/13 18:45
  */
-public class UserAvatar {
+public class UserAvatar implements Serializable{
 
     /**
      * muserName : a952702

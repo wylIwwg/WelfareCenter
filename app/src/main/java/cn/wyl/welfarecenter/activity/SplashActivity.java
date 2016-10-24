@@ -8,6 +8,7 @@ import android.util.Log;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.dao.SharedPreferencesUtils;
 import cn.wyl.welfarecenter.dao.UserDao;
 import cn.wyl.welfarecenter.utils.MFGT;
 
@@ -30,9 +31,12 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 UserAvatar user = WelfareCenterApplication.getUser();
                 Log.e("main", "wel+" + user);
-                if (user == null) {
+                String userName = SharedPreferencesUtils.getInstance(mContext).getUserName();
+                Log.e("main","sahre+"+userName);
+                if (user == null&&userName!=null) {
                     UserDao dao = new UserDao(mContext);
-                    user = dao.getUser("wylIwwg");
+                    user = dao.getUser(userName);
+                    WelfareCenterApplication.setUser(user);
                     Log.e("main", "data++" + user);
                 }
                 MFGT.startActivity(SplashActivity.this, MainActivity.class);
