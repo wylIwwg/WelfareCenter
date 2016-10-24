@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
@@ -74,7 +76,7 @@ public class MainActivity extends BaseActivity {
                 .show(mFragments[0]).commit();
     }
 
-    static final int REQUEST_LOGIN = 102;
+
     int index;
     RadioButton perbtn;
 
@@ -127,6 +129,7 @@ public class MainActivity extends BaseActivity {
                     transaction.show(mFragments[3]);
                 break;
         }
+
         setRadioButtonStatus();
 
         transaction.commit();
@@ -136,13 +139,24 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN) {
-            UserAvatar user = (UserAvatar) data.getSerializableExtra("user");
-            Log.e("main", "登录成功："+user + "");
-            mFragments[4] = null;
-            onMenuButtonChanged(perbtn);
-        }
+        switch (requestCode) {
+            case  I.TO_LOGIN_AC:
+                UserAvatar user = (UserAvatar) data.getSerializableExtra("user");
+                Log.e("main", "登录成功：" + user + "");
 
+                mFragments[4] = new PersonFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();
+
+            break;
+            case I.TO_PERSONAINFO_AC:
+                if (WelfareCenterApplication.getUser()==null){
+                    mFragments[4] = new PersonFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();
+                }
+                break;
+        }
     }
 
     private void hideFragments(FragmentTransaction transaction) {

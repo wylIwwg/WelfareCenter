@@ -101,6 +101,7 @@ public class LoginActivity extends BaseActivity {
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         intent.putExtra("user",user);
                         setResult(RESULT_OK,intent);
+
                         MFGT.finish(mContext);
                     }
                 } else {

@@ -53,7 +53,7 @@
                 android:src="@drawable/userpic"/>
 
             <TextView
-                android:id="@+id/tv_per_username"
+                android:id="@+id/tv_per_usernick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

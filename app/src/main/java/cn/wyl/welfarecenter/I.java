@@ -18,6 +18,10 @@ public interface I {
     int TYPE_ITEM=0;
     int TYPE_FOOTER=1;
 
+
+    static final int TO_LOGIN_AC=111;
+    static final int TO_PERSONAINFO_AC = 1005;
+
     /** BeeColud APP ID */
     String BEE_COLUD_APP_ID = "3539b590-4859-4128-87a3-5fb8b86b94f6";
     /** BeeColud APP Secret*/

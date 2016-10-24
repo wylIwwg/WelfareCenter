@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.UserAvatar;
@@ -26,13 +27,13 @@ import cn.wyl.welfarecenter.utils.MFGT;
 public class PersonFragment extends Fragment {
     Context mContext;
 
-    @BindView(R.id.tv_per_username)
-    TextView mTvPerUsername;
 
     UserAvatar user;
     String username;
     @BindView(R.id.img_per_user_avatar)
     ImageView mImgPerUserAvatar;
+    @BindView(R.id.tv_per_usernick)
+    TextView mTvPerUsernick;
 
 
     public PersonFragment() {
@@ -72,10 +73,16 @@ public class PersonFragment extends Fragment {
                 }
             }).setIcon(R.drawable.quest).create().show();
         } else {
-            mTvPerUsername.setText(user.getMuserName());
+            mTvPerUsernick.setText(user.getMuserNick());
+
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mImgPerUserAvatar);
         }
     }
 
 
+    @OnClick(R.id.tv_per_usernick)
+    public void onClick() {
+        MFGT.goPersonInfoActivity(getActivity());
+
+    }
 }
