@@ -51,6 +51,7 @@ public interface I {
     int CATEGORY_GOOD=1;
     int CAT_ID=0;
 
+
     interface Goods {
         String KEY_RESULT = "result";
         String RESPONSE_SUCCESS = "success";
@@ -276,6 +277,7 @@ public interface I {
     String AVATAR_TYPE_GROUP_PATH ="group_icon";//群组头像保存目录
     String AVATAR_SUFFIX_PNG=".png";//PNG图片后缀名
     String AVATAR_SUFFIX_JPG=".jpg";//JPG图片后缀名
+    String AVATAR_SUFFIX_TYPE ="m_avatar_suffix";
     String QUESTION = "?";//问号
     String EQUAL = "="; //等号
     String AND = "&"; //&符号
@@ -415,5 +417,6 @@ public interface I {
     /** 下载精选首页图像的接口*/
     String DOWNLOAD_IMG_URL= I.SERVER_ROOT+
             REQUEST_DOWNLOAD_IMAGE+I.QUESTION+ IMAGE_URL+"=";
+    String DOWNLOAD_AVATAR_URL=I.SERVER_ROOT+I.REQUEST_DOWNLOAD_AVATAR+I.QUESTION;
 
 }

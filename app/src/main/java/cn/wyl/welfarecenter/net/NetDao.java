@@ -9,6 +9,7 @@ import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.bean.Result;
+import cn.wyl.welfarecenter.utils.MD5;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
@@ -78,7 +79,7 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_REGISTER)
                 .addParam(I.User.USER_NAME, name)
                 .addParam(I.User.NICK, nick)
-                .addParam(I.User.PASSWORD, password)
+                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(Result.class)
                 .post()
                 .execute(listener);
@@ -88,7 +89,7 @@ public class NetDao {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
                 .addParam(I.User.USER_NAME, name)
-                .addParam(I.User.PASSWORD,password)
+                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .execute(listener);
     }

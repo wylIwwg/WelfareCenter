@@ -17,6 +17,7 @@ import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.dao.SharedPreferencesUtils;
 import cn.wyl.welfarecenter.fragments.BoutiqueFragment;
 import cn.wyl.welfarecenter.fragments.CartFragment;
 import cn.wyl.welfarecenter.fragments.CategoryFragment;
@@ -137,7 +138,7 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN) {
             UserAvatar user = (UserAvatar) data.getSerializableExtra("user");
-            Log.e("main", user + "");
+            Log.e("main", "登录成功："+user + "");
             mFragments[4] = null;
             onMenuButtonChanged(perbtn);
         }
@@ -164,6 +165,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        SharedPreferencesUtils.getInstance(this).removeUser();
         finish();
     }
 }

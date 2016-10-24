@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="120dp"
         android:background="#ff4e20"
         android:padding="2dp">
 
@@ -46,10 +46,10 @@
 
 
             <ImageView
-
                 android:id="@+id/img_per_user_avatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/userpic"/>
 
             <TextView
@@ -73,10 +73,10 @@
     </RelativeLayout>
 
 
-
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="#f36838"
         android:orientation="horizontal">
 
@@ -85,12 +85,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="0"
                 android:textColor="#fff"
                 android:textSize="15sp"/>
@@ -114,12 +115,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="0"
                 android:textColor="#fff"
                 android:textSize="15sp"/>
@@ -148,6 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="0"
                 android:textColor="#fff"
                 android:textSize="15sp"/>
@@ -160,69 +163,135 @@
                 android:textSize="15sp"/>
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
-        android:layout_marginTop="5dp"
-        android:background="@color/bottom_bar_taobao_bg"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/bottom_bar_taobao_bg">
+
         <TextView
-            android:background="@color/bottom_bar_taobao_bg"
-            android:layout_marginLeft="20dp"
-            android:gravity="center_vertical"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="我的订单"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@color/bottom_bar_taobao_bg"
+            android:gravity="center_vertical"
+            android:text="我的订单"
+            android:textColor="#000"
+            android:textSize="18sp"/>
 
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:background="@null"
             android:drawableRight="@drawable/arrow_right"
-            android:layout_marginRight="10dp"
-            android:text="查看全部订单"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:text="查看全部订单"/>
     </RelativeLayout>
+
     <LinearLayout
-        android:background="@color/list_background"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <Button android:paddingTop="3dp"
-           android:layout_weight="1"
-            android:background="@color/list_background"
-            android:layout_width="wrap_content"
-            android:drawableTop="@drawable/wait_pay"
-            android:text="待付款"
-            android:layout_height="match_parent"/>
-        <Button android:paddingTop="3dp"
-            android:layout_weight="1"
-            android:background="@color/list_background"
-            android:layout_width="wrap_content"
-            android:drawableTop="@drawable/wait_diver"
-            android:text="待发货"
-            android:layout_height="match_parent"/>
-        <Button android:paddingTop="3dp"
-            android:layout_weight="1"
-            android:background="@color/list_background"
-            android:layout_width="wrap_content"
-            android:drawableTop="@drawable/wait_recive"
-            android:text="待收货"
-            android:layout_height="match_parent"/>
+        android:layout_height="60dp"
+        android:background="@color/list_background">
+
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/list_background"
+            android:drawableTop="@drawable/wait_pay"
             android:paddingTop="3dp"
+            android:text="待付款"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/list_background"
+            android:drawableTop="@drawable/wait_diver"
+            android:paddingTop="3dp"
+            android:text="待发货"/>
+
+        <Button
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/list_background"
+            android:drawableTop="@drawable/wait_recive"
+            android:paddingTop="3dp"
+            android:text="待收货"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/list_background"
             android:drawableTop="@drawable/wait_flower"
-            android:text="待评价"
-            android:layout_height="match_parent"/>
-        <Button android:paddingTop="3dp"
+            android:paddingTop="3dp"
+            android:text="待评价"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/list_background"
-            android:layout_width="wrap_content"
             android:drawableTop="@drawable/wait_service"
-            android:text="退款/售后"
-            android:layout_height="match_parent"/>
+            android:paddingTop="3dp"
+            android:text="退款/售后"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/list_background"
+        android:drawableRight="@drawable/arrow_right"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="我的卡券包"
+        android:textColor="#000"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/list_background"
+        android:drawableLeft="@drawable/center_card_coupon1"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="生活券"
+        android:textColor="#000"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/list_background"
+        android:drawableLeft="@drawable/center_card_coupon2"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="网店券"
+        android:textColor="#000"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/list_background"
+        android:drawableLeft="@drawable/center_card_coupon3"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="会员卡"
+        android:textColor="#000"
+        android:textSize="17sp"/>
 </LinearLayout>
