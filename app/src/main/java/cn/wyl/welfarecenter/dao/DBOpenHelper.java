@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static int VERSION = 1;
     private static DBOpenHelper mHelper;
 
-    static final String USER_TABLE_CREATE = "create table" +
+    static final String USER_TABLE_CREATE = "create table " +
             UserDao.USER_TABLE_NAME + " (" +
             UserDao.USER_COLUMN_NAME + " text primary key," +
             UserDao.USER_COLUMN_NICK + " text," +

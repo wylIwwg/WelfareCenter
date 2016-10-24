@@ -12,10 +12,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.Result;
+import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.dao.UserDao;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
+import cn.wyl.welfarecenter.utils.ResultUtils;
 
 /**
  * 项目名称：WelfareCenter
@@ -36,6 +40,7 @@ public class LoginActivity extends BaseActivity {
     Button mBtnFreeRegister;
 
     String name;
+    LoginActivity mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         name = getIntent().getStringExtra("userName");
+        mContext = this;
         if (name != null) {
             mEtUserName.setText(name);
         }
@@ -57,16 +63,16 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 final String name = mEtUserName.getText().toString();
                 String password = mEtPassword.getText().toString();
-                if (name.equals("")){
+                if (name.equals("")) {
                     Toast.makeText(LoginActivity.this, R.string.user_name_connot_be_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (password.equals("")){
+                if (password.equals("")) {
                     Toast.makeText(LoginActivity.this, R.string.password_connot_be_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-               // isExistName(name);
+                // isExistName(name);
                 userLogin(name, password);
 
                 break;
@@ -77,15 +83,20 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void userLogin(String name, String password) {
-        NetDao.doLogin(this, name, password, new OkHttpUtils.OnCompleteListener<Result>() {
+        NetDao.doLogin(this, name, password, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
-            public void onSuccess(Result result) {
-                if (result.getRetCode() == 0 && result.isRetMsg()) {
+            public void onSuccess(String result) {
+                Result userresult = ResultUtils.getResultFromJson(result, UserAvatar.class);
+                if (userresult.getRetCode() == 0 && userresult.isRetMsg()) {
                     Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
-
-
-                }
-                else {
+                    UserAvatar user = (UserAvatar) userresult.getRetData();
+                    UserDao dao = new UserDao(mContext);
+                    boolean isSuccess = dao.saveUser(user);
+                    if (isSuccess) {
+                        WelfareCenterApplication.setUser(user);
+                        MFGT.finish(mContext);
+                    }
+                } else {
                     Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -108,6 +119,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
             }
+
             @Override
             public void onError(String error) {
             }
