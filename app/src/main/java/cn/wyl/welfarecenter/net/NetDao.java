@@ -2,6 +2,8 @@ package cn.wyl.welfarecenter.net;
 
 import android.content.Context;
 
+import java.io.File;
+
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.bean.BoutiqueBean;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
@@ -102,11 +104,14 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void updateUserAvatar(Context context, String name, OkHttpUtils.OnCompleteListener<Result> listener) {
-        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
-        utils.setRequestUrl(I.REQUEST_FIND_USER)
-                .addParam(I.User.USER_NAME, name)
-                .targetClass(Result.class)
+    public static void updateUserAvatar(Context context, String name, File file,OkHttpUtils.OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
+                .addParam(I.NAME_OR_HXID, name)
+                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addFile2(file)
+                .targetClass(String.class)
+                .post()
                 .execute(listener);
     }
 

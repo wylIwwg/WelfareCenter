@@ -383,7 +383,7 @@ public class ImageLoader {
         if (user != null) {
             String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + I.EQUAL + user.getMuserName()
                     + I.AND + I.AVATAR_TYPE + I.EQUAL + user.getMavatarPath() + I.AND + I.AVATAR_SUFFIX_TYPE+I.EQUAL
-                    + user.getMavatarSuffix() + I.AND + "width=200&height=200";
+                    + user.getMavatarSuffix() + I.AND + "width=200&height=200"+"&"+user.getMavatarLastUpdateTime();
             Log.e("main", url);
             return url;
         }

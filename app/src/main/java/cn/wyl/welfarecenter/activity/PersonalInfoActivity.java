@@ -4,11 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,10 +18,15 @@ import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.bean.Result;
 import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.dao.SharedPreferencesUtils;
+import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ImageLoader;
 import cn.wyl.welfarecenter.utils.MFGT;
+import cn.wyl.welfarecenter.utils.OkHttpUtils;
+import cn.wyl.welfarecenter.utils.OnSetAvatarListener;
+import cn.wyl.welfarecenter.utils.ResultUtils;
 
 public class PersonalInfoActivity extends BaseActivity {
 
@@ -69,9 +76,9 @@ public class PersonalInfoActivity extends BaseActivity {
                 MFGT.finish(this);
                 break;
             case R.id.tv_mynick:
-               // MFGT.startActivity(this,UpdateNickActivity.class);
-                Intent intent=new Intent(this,UpdateNickActivity.class);
-                startActivityForResult(intent,I.TO_UPDATE_NICK);
+                // MFGT.startActivity(this,UpdateNickActivity.class);
+                Intent intent = new Intent(this, UpdateNickActivity.class);
+                startActivityForResult(intent, I.TO_UPDATE_NICK);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.btn_relogin:
@@ -79,7 +86,7 @@ public class PersonalInfoActivity extends BaseActivity {
                 loginOut();
                 break;
             case R.id.img_avatar_update:
-                updateAvatar();
+                mAvatarListener = new OnSetAvatarListener(this, R.id.lay_load_info, user.getMuserName(), I.AVATAR_TYPE_USER_PATH);
                 break;
             case R.id.img_pr_update:
                 break;
@@ -89,18 +96,19 @@ public class PersonalInfoActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case I.TO_UPDATE_NICK:
-                if (resultCode==RESULT_OK){
-                    Toast.makeText(PersonalInfoActivity.this, "更新昵称成功！", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case I.TO_UPDATE_AVATAR:
-                if (resultCode==RESULT_OK){
-                    Toast.makeText(PersonalInfoActivity.this, "更新头像成功！", Toast.LENGTH_SHORT).show();
-                }
-                break;
+       /* if (requestCode == I.TO_UPDATE_NICK && (resultCode == RESULT_OK)) {
+            Toast.makeText(PersonalInfoActivity.this, "更新昵称成功！", Toast.LENGTH_SHORT).show();
+        }*/
+        Log.e("main","resultcode="+resultCode);
+        if (resultCode != RESULT_OK) {
+            return;
         }
+        mAvatarListener.setAvatar(requestCode, data, mImgAvatar);
+        if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
+            updateAvatar();
+        }
+
+
     }
 
     @Override
@@ -109,7 +117,31 @@ public class PersonalInfoActivity extends BaseActivity {
         initData();
     }
 
+    OnSetAvatarListener mAvatarListener;
+
     private void updateAvatar() {
+        File file = new File(OnSetAvatarListener.getAvatarPath(this,user.getMavatarPath()+"/"+user.getMuserName()+I.AVATAR_SUFFIX_JPG));
+        Log.e("main",file.exists()+"file?");
+        Log.e("main",file.getAbsolutePath());
+        NetDao.updateUserAvatar(this, user.getMuserName(),file, new OkHttpUtils.OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Result result = ResultUtils.getResultFromJson(s, UserAvatar.class);
+                Log.e("main","re=="+result);
+                if (result.getRetCode()==0&&result.isRetMsg()){
+                    UserAvatar user= (UserAvatar) result.getRetData();
+                    if (user!=null){
+                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mc,mImgAvatar);
+                        WelfareCenterApplication.setUser(user);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
 
     }
 

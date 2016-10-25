@@ -2,6 +2,8 @@ package cn.wyl.welfarecenter.bean;
 
 import java.io.Serializable;
 
+import cn.wyl.welfarecenter.I;
+
 /**
  * 项目名称：WelfareCenter
  * 创建人：wyl
@@ -73,7 +75,7 @@ public class UserAvatar implements Serializable{
     }
 
     public String getMavatarSuffix() {
-        return mavatarSuffix;
+        return mavatarSuffix!=null?mavatarSuffix: I.AVATAR_SUFFIX_JPG;
     }
 
     public void setMavatarSuffix(String mavatarSuffix) {

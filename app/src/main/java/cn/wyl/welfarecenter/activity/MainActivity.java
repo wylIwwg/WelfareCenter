@@ -154,11 +154,8 @@ public class MainActivity extends BaseActivity {
             case I.TO_LOGIN_AC:
                 UserAvatar user = WelfareCenterApplication.getUser();
                if (user!=null) {
-
                    Log.e("main", "登录成功：" + user + "");
-
                    PersonFragment fragment = new PersonFragment();
-
                    getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
                    mFragments[4] = fragment;
                    setRadioButtonStatus();
