@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -34,6 +36,12 @@ public class PersonFragment extends Fragment {
     ImageView mImgPerUserAvatar;
     @BindView(R.id.tv_per_usernick)
     TextView mTvPerUsernick;
+    @BindView(R.id.tv_setting)
+    TextView mTvSetting;
+    @BindView(R.id.img_message)
+    ImageView mImgMessage;
+    @BindView(R.id.user)
+    LinearLayout mUser;
 
 
     public PersonFragment() {
@@ -55,23 +63,11 @@ public class PersonFragment extends Fragment {
 
     private void initView() {
         //  String userName = SharedPreferencesUtils.getInstance(getActivity()).getUserName();
-        UserAvatar user = WelfareCenterApplication.getUser();
+        user = WelfareCenterApplication.getUser();
 
         if (user == null) {
 
-            new AlertDialog.Builder(getActivity()).setTitle("未登录").setMessage("请先登录...").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    MFGT.gotoLogin(getActivity());
-
-                }
-            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            }).setIcon(R.drawable.quest).create().show();
+            LoginDialog();
         } else {
             mTvPerUsernick.setText(user.getMuserNick());
 
@@ -79,10 +75,42 @@ public class PersonFragment extends Fragment {
         }
     }
 
+    private void LoginDialog() {
+        new AlertDialog.Builder(getActivity()).setTitle("未登录").setMessage("请先登录...").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-    @OnClick(R.id.tv_per_usernick)
-    public void onClick() {
-        MFGT.goPersonInfoActivity(getActivity());
+                MFGT.gotoLogin(getActivity());
+
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setIcon(R.drawable.quest).create().show();
+    }
+
+
+    @OnClick({R.id.tv_per_usernick, R.id.tv_setting})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_per_usernick:
+
+                break;
+            case R.id.tv_setting:
+                Log.e("main", "点击用户昵称");
+                if (user == null) {
+                    LoginDialog();
+                } else if (user != null) {
+
+                    MFGT.goPersonInfoActivity(getActivity());
+                }
+                break;
+            case R.id.btn_relogin:
+                break;
+        }
 
     }
+
 }

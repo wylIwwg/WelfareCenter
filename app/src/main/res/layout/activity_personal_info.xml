@@ -9,13 +9,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="#fff">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="30dp"
-            android:layout_height="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/left_arrow"/>
 
         <TextView
@@ -25,28 +26,33 @@
             android:gravity="center"
             android:text="个人资料"
             android:textColor="#000"
-            android:textSize="20sp"/>
+            android:textSize="25sp"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_marginTop="15dp"
         android:background="#fff">
 
-        <ImageView
-            android:id="@+id/img_avatar"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/contactlogo"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:text="用户名"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_person_name"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="士大夫"
             android:textSize="25sp"/>
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -83,22 +89,63 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:text="头像"
+            android:textSize="20sp"/>
+
+        <ImageView
+
+            android:id="@+id/img_avatar"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/img_avatar_update"
+            android:src="@drawable/contactlogo"/>
+
+        <ImageView
+            android:id="@+id/img_avatar_update"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:src="@drawable/arrow_right"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="5dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="我的二维码"
             android:textSize="20sp"/>
 
         <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/img_pr_update"
+            android:src="@drawable/qr"/>
+
+        <ImageView
+            android:id="@+id/img_pr_update"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/qr"/>
+            android:gravity="center"
+            android:src="@drawable/arrow_right"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
     <Button
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:id="@+id/btn_relogin"
-        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:background="@color/common_botton_bar_blue"
         android:text="退出登录"
         android:textSize="20sp"/>
