@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.wyl.welfarecenter.activity.UpdateNickActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/list_background">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/left_arrow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="42dp"
+            android:gravity="center"
+            android:text="修改昵称"
+            android:textSize="25sp"/>
+    </LinearLayout>
+
+    <EditText
+        android:textSize="20sp"
+        android:id="@+id/et_update_nick"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/btn_upda_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/common_botton_bar_blue"
+        android:text="保存"
+        android:textSize="25sp"/>
+</LinearLayout>

@@ -96,21 +96,26 @@ public class PersonFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_per_usernick:
-
+                Log.e("main", "点击用户昵称");
+                gotoPersonInfo();
                 break;
             case R.id.tv_setting:
-                Log.e("main", "点击用户昵称");
-                if (user == null) {
-                    LoginDialog();
-                } else if (user != null) {
-
-                    MFGT.goPersonInfoActivity(getActivity());
-                }
+                Log.e("main", "点击设置");
+                gotoPersonInfo();
                 break;
             case R.id.btn_relogin:
                 break;
         }
 
+    }
+
+    private void gotoPersonInfo() {
+        if (user == null) {
+            LoginDialog();
+        } else if (user != null) {
+
+            MFGT.goPersonInfoActivity(getActivity());
+        }
     }
 
 }

@@ -38,4 +38,7 @@ public class UserDao {
         return DBManager.getInstance().getUser(userName);
 
     }
+    public boolean updateUserNick(String nick){
+        return  false;
+    }
 }

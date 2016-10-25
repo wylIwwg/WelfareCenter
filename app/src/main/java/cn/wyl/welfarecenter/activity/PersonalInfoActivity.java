@@ -1,16 +1,19 @@
 package cn.wyl.welfarecenter.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.UserAvatar;
@@ -44,6 +47,12 @@ public class PersonalInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_personal_info);
         ButterKnife.bind(this);
         mc = this;
+        initData();
+
+
+    }
+
+    private void initData() {
         user = WelfareCenterApplication.getUser();
         if (user != null) {
             mTvMynick.setText(user.getMuserNick());
@@ -51,8 +60,6 @@ public class PersonalInfoActivity extends BaseActivity {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), this, mImgAvatar);
             mBtnRelogin.setText("退出当前账号（" + user.getMuserName() + "）");
         }
-
-
     }
 
     @OnClick({R.id.img_back, R.id.tv_mynick, R.id.btn_relogin, R.id.img_avatar_update, R.id.img_pr_update})
@@ -62,6 +69,10 @@ public class PersonalInfoActivity extends BaseActivity {
                 MFGT.finish(this);
                 break;
             case R.id.tv_mynick:
+               // MFGT.startActivity(this,UpdateNickActivity.class);
+                Intent intent=new Intent(this,UpdateNickActivity.class);
+                startActivityForResult(intent,I.TO_UPDATE_NICK);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.btn_relogin:
 
@@ -73,6 +84,29 @@ public class PersonalInfoActivity extends BaseActivity {
             case R.id.img_pr_update:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case I.TO_UPDATE_NICK:
+                if (resultCode==RESULT_OK){
+                    Toast.makeText(PersonalInfoActivity.this, "更新昵称成功！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case I.TO_UPDATE_AVATAR:
+                if (resultCode==RESULT_OK){
+                    Toast.makeText(PersonalInfoActivity.this, "更新头像成功！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 
     private void updateAvatar() {

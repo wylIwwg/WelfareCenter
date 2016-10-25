@@ -19,7 +19,7 @@ import cn.wyl.welfarecenter.utils.OkHttpUtils;
  */
 public class NetDao {
     public static void downNeworBoutiqueGoods(Context context, int catId, int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
-        OkHttpUtils<NewGoodsBean[]>  utils = new OkHttpUtils<>(context);
+        OkHttpUtils<NewGoodsBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
                 .addParam(I.NewAndBoutiqueGoods.CAT_ID, catId + "")
                 .addParam(I.PAGE_ID, pageId + "")
@@ -109,12 +109,13 @@ public class NetDao {
                 .targetClass(Result.class)
                 .execute(listener);
     }
-    public static void updateUserNick(Context context, String name,String nick, OkHttpUtils.OnCompleteListener<Result> listener) {
-        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+
+    public static void updateUserNick(Context context, String name, String nick, OkHttpUtils.OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME, name)
-                .addParam(I.User.NICK,nick)
-                .targetClass(Result.class)
+                .addParam(I.User.NICK, nick)
+                .targetClass(String.class)
                 .execute(listener);
     }
 }

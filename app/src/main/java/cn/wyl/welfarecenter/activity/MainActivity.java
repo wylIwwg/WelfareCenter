@@ -135,6 +135,17 @@ public class MainActivity extends BaseActivity {
         transaction.commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (index==4&& WelfareCenterApplication.getUser()!=null) {
+            PersonFragment fragment = new PersonFragment();
+
+            getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+            mFragments[4] = fragment;
+            setRadioButtonStatus();
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -142,16 +153,16 @@ public class MainActivity extends BaseActivity {
         switch (requestCode) {
             case I.TO_LOGIN_AC:
                 UserAvatar user = WelfareCenterApplication.getUser();
-               if (user!=null){
+               if (user!=null) {
 
                    Log.e("main", "登录成功：" + user + "");
+
+                   PersonFragment fragment = new PersonFragment();
+
+                   getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+                   mFragments[4] = fragment;
+                   setRadioButtonStatus();
                }
-                PersonFragment fragment = new PersonFragment();
-
-                getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
-                mFragments[4] = fragment;
-                setRadioButtonStatus();
-
                 break;
             case I.TO_PERSONAINFO_AC:
                 if (WelfareCenterApplication.getUser() == null) {
@@ -159,9 +170,7 @@ public class MainActivity extends BaseActivity {
                     getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment1).show(fragment1).commit();
                     mFragments[4] = fragment1;
                     setRadioButtonStatus();
-                    /*mFragments[4] = new PersonFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();*/
+
                 }
                 break;
         }

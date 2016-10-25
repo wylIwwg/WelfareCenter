@@ -19,7 +19,7 @@ public class DBManager {
 
     void initHelper(Context context) {
 
-        helper = new DBOpenHelper(context);
+        helper=DBOpenHelper.initDB(context);
     }
 
     public static synchronized DBManager getInstance() {
