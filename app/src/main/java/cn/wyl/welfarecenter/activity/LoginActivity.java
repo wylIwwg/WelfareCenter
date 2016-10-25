@@ -3,6 +3,7 @@ package cn.wyl.welfarecenter.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.Result;
@@ -49,11 +51,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        name = getIntent().getStringExtra("userName");
         mContext = this;
-        if (name != null) {
-            mEtUserName.setText(name);
-        }
+
     }
 
     @OnClick({R.id.img_back, R.id.btn_login, R.id.btn_freeRegister})
@@ -79,8 +78,23 @@ public class LoginActivity extends BaseActivity {
 
                 break;
             case R.id.btn_freeRegister:
-                MFGT.startActivity(LoginActivity.this, RegisterActivity.class);
+               // MFGT.startActivity(LoginActivity.this, RegisterActivity.class);
+                MFGT.gotoRegisterActivity(this);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("main","denglu:");
+        if (requestCode== I.TO_REGISTER_AC&&resultCode==RESULT_OK){
+            Log.e("main","注册成功");
+            Toast.makeText(LoginActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+            name = data.getStringExtra("userName");
+            if (name != null) {
+                mEtUserName.setText(name);
+            }
         }
     }
 
@@ -115,7 +129,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void isExistName(final String name) {
+   /* private void isExistName(final String name) {
         //判断是否已经存在该用户
         NetDao.doFindUserByName(this, name, new OkHttpUtils.OnCompleteListener<Result>() {
             @Override
@@ -131,5 +145,5 @@ public class LoginActivity extends BaseActivity {
             public void onError(String error) {
             }
         });
-    }
+    }*/
 }

@@ -30,8 +30,9 @@ public interface I {
 
     int TO_UPDATE_NICK = 1006;
     int TO_UPDATE_AVATAR = 1007;
-    static final int TO_LOGIN_AC = 111;
-    static final int TO_PERSONAINFO_AC = 1005;
+     int TO_LOGIN_AC = 111;
+     int TO_PERSONAINFO_AC = 1005;
+    int TO_REGISTER_AC=1008;
 
     /**
      * BeeColud APP ID

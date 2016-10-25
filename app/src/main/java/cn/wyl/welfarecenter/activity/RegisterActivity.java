@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
@@ -92,7 +91,7 @@ public class RegisterActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Result result) {
                         if (result.getRetCode() == 0 && result.isRetMsg()) {
-                            Toast.makeText(RegisterActivity.this, "用户名：" + name + " 已存在！", Toast.LENGTH_SHORT).show();
+                            mEtRegiUserName.setError("帐户名已存在");
                             mEtRegiUserName.requestFocus();
                             return;
                         }
@@ -110,7 +109,9 @@ public class RegisterActivity extends BaseActivity {
                         if (result.getRetCode() == 0 && result.isRetMsg()) {
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             intent.putExtra("userName", mEtRegiUserName.getText().toString());
-                            MFGT.startActivity(RegisterActivity.this, intent);
+                            setResult(RESULT_OK, intent);
+                            //MFGT.startActivity(RegisterActivity.this, intent);
+                            MFGT.finish(RegisterActivity.this);
                         }
                     }
 

@@ -8,6 +8,7 @@ import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.activity.LoginActivity;
 import cn.wyl.welfarecenter.activity.MainActivity;
 import cn.wyl.welfarecenter.activity.PersonalInfoActivity;
+import cn.wyl.welfarecenter.activity.RegisterActivity;
 
 
 public class MFGT {
@@ -48,5 +49,10 @@ public class MFGT {
         context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
+    public static void gotoRegisterActivity(Activity context){
 
+        Intent intent = new Intent(context, RegisterActivity.class);
+        context.startActivityForResult(intent, I.TO_REGISTER_AC);
+        context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
 }
