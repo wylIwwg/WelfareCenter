@@ -31,6 +31,9 @@ public class UserDao {
         return DBManager.getInstance().updataUser(user);
     }
 
+    public void closeDB(){
+        DBManager.getInstance().closeDB();
+    }
     public UserAvatar getUser(String userName) {
         return DBManager.getInstance().getUser(userName);
 

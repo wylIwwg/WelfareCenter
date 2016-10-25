@@ -140,20 +140,28 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case  I.TO_LOGIN_AC:
-                UserAvatar user = (UserAvatar) data.getSerializableExtra("user");
-                Log.e("main", "登录成功：" + user + "");
+            case I.TO_LOGIN_AC:
+                UserAvatar user = WelfareCenterApplication.getUser();
+               if (user!=null){
 
-                mFragments[4] = new PersonFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();
+                   Log.e("main", "登录成功：" + user + "");
+               }
+                PersonFragment fragment = new PersonFragment();
 
-            break;
+                getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+                mFragments[4] = fragment;
+                setRadioButtonStatus();
+
+                break;
             case I.TO_PERSONAINFO_AC:
-                if (WelfareCenterApplication.getUser()==null){
-                    mFragments[4] = new PersonFragment();
+                if (WelfareCenterApplication.getUser() == null) {
+                    PersonFragment fragment1 = new PersonFragment();
+                    getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment1).show(fragment1).commit();
+                    mFragments[4] = fragment1;
+                    setRadioButtonStatus();
+                    /*mFragments[4] = new PersonFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();
+                            .replace(R.id.frameLayout, mFragments[4]).show(mFragments[4]).commit();*/
                 }
                 break;
         }

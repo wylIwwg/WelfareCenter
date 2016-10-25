@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import cn.wyl.welfarecenter.I;
-import cn.wyl.welfarecenter.bean.UserAvatar;
 
 /**
  * 项目名称：WelfareCenter
@@ -57,7 +56,5 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean saveUser(UserAvatar user) {
-        return false;
-    }
+
 }

@@ -101,4 +101,20 @@ public class NetDao {
                 .targetClass(Result.class)
                 .execute(listener);
     }
+
+    public static void updateUserAvatar(Context context, String name, OkHttpUtils.OnCompleteListener<Result> listener) {
+        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_USER)
+                .addParam(I.User.USER_NAME, name)
+                .targetClass(Result.class)
+                .execute(listener);
+    }
+    public static void updateUserNick(Context context, String name,String nick, OkHttpUtils.OnCompleteListener<Result> listener) {
+        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME, name)
+                .addParam(I.User.NICK,nick)
+                .targetClass(Result.class)
+                .execute(listener);
+    }
 }

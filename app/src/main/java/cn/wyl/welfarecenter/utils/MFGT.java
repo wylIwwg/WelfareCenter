@@ -42,8 +42,8 @@ public class MFGT {
     }
 
     public static void goPersonInfoActivity(Activity context){
-        Intent intent = new Intent(context, PersonalInfoActivity.class);
 
+        Intent intent = new Intent(context, PersonalInfoActivity.class);
         context.startActivityForResult(intent, I.TO_PERSONAINFO_AC);
         context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
