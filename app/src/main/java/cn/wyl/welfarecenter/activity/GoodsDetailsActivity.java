@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,22 +58,34 @@ public class GoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_desc)
     TextView mTvDesc;
     int goodid;
+    UserAvatar user;
+    boolean iscollect;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
+        user = WelfareCenterApplication.getUser();
         Intent intent = getIntent();
         goodid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
         if (goodid == 0) {
             MFGT.finish(this);
         }
         mContext = this;
-        initView(goodid);
+
+        initView();
     }
 
-    private void initView(int goodid) {
+    private void initView() {
+
+        isCollect();
+
+        downGoodsDetails();
+
+    }
+
+    private void downGoodsDetails() {
         NetDao.downGoodsDetails(mContext, goodid, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
@@ -91,39 +104,37 @@ public class GoodsDetailsActivity extends BaseActivity {
                 MFGT.finish((Activity) mContext);
             }
         });
-
     }
+
 
     @OnClick(R.id.img_collect)
     public void collectGoods() {
-        final UserAvatar user = WelfareCenterApplication.getUser();
-        if (user != null) {
-
-            NetDao.isCollected(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                @Override
-                public void onSuccess(MessageBean result) {
-                    if (result != null && !result.isSuccess()) {
-                        addCollects(user);
-                    }else {
-                        deleteCollects(user);
-                    }
-
-                }
-
-                @Override
-                public void onError(String error) {
-
-                }
-            });
+        if (user == null) {
+            Toast.makeText(GoodsDetailsActivity.this, "请先登录...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (iscollect) {
+            deleteCollects();
+        } else {
+            addCollects();
         }
 
     }
 
-    private void deleteCollects(UserAvatar user) {
-        NetDao.deleteCollects(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+    private void isCollect() {
+        NetDao.isCollected(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
             @Override
             public void onSuccess(MessageBean result) {
+                iscollect = result.isSuccess();
+                if (iscollect) {
+                    Log.e("main", "iscollect  t=" + iscollect);
+                    mImgCollect.setImageResource(R.mipmap.bg_collect_out);
+                } else {
+                    Log.e("main", "iscollect  f=" + iscollect);
+                    mImgCollect.setImageResource(R.mipmap.bg_collect_in);
+                }
 
+                Log.e("main", "是否收藏？" + iscollect);
             }
 
             @Override
@@ -133,12 +144,31 @@ public class GoodsDetailsActivity extends BaseActivity {
         });
     }
 
-    private void addCollects(UserAvatar user) {
+    private void deleteCollects() {
+        NetDao.deleteCollects(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+                    mImgCollect.setImageResource(R.mipmap.bg_collect_in);
+                    iscollect = false;
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void addCollects() {
         NetDao.addCollects(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
             @Override
             public void onSuccess(MessageBean result) {
                 if (result != null && result.isSuccess()) {
                     Log.e("main", "收藏成功！");
+                    iscollect = true;
+                    mImgCollect.setImageResource(R.mipmap.bg_collect_out);
                 }
             }
 
