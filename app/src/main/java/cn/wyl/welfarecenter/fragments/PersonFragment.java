@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.activity.CollectsActivity;
 import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.net.NetDao;
@@ -144,6 +145,7 @@ public class PersonFragment extends Fragment {
             case R.id.btn_relogin:
                 break;
             case R.id.collect_goods:
+                MFGT.startActivity(getActivity(), CollectsActivity.class);
                 break;
             case R.id.collect_shops:
                 break;

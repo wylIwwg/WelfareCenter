@@ -8,6 +8,7 @@ import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.bean.BoutiqueBean;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
+import cn.wyl.welfarecenter.bean.CollectBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
@@ -130,6 +131,16 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
                 .addParam(I.Collect.USER_NAME, name)
                 .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void downCollects(Context context, String name , int pageId, OkHttpUtils.OnCompleteListener<CollectBean[]> listener) {
+        OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME, name)
+                .addParam(I.PAGE_ID,pageId+"")
+                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .targetClass(CollectBean[].class)
                 .execute(listener);
     }
 }
