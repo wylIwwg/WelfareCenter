@@ -6,6 +6,7 @@ import java.io.File;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.bean.BoutiqueBean;
+import cn.wyl.welfarecenter.bean.CartBean;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.bean.CollectBean;
@@ -166,6 +167,26 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_ADD_COLLECT)
                 .addParam(I.Collect.GOODS_ID,goodsId+"")
                 .addParam(I.Collect.USER_NAME, name)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void findCarts(Context context, String muserName, OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
+        OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME,muserName)
+                .targetClass(CartBean[].class)
+                .execute(listener);
+    }
+
+    public static void addToCart(Context context, String muserName, int goodid,
+                                 int count, int ischecked,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_CART)
+                .addParam(I.Cart.GOODS_ID,goodid+"")
+                .addParam(I.Cart.USER_NAME, muserName)
+                .addParam(I.Cart.COUNT,count+"")
+                .addParam(I.Cart.IS_CHECKED,ischecked+"")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }

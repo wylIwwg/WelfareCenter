@@ -26,6 +26,14 @@
             android:text="商品详情"
             android:textSize="20sp"/>
 
+        <ImageView
+            android:id="@+id/img_add_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/img_collect"
+            android:src="@mipmap/bg_cart_selected"/>
 
         <ImageView
             android:id="@+id/img_collect"

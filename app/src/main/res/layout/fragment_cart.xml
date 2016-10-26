@@ -1,14 +1,74 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="cn.wyl.welfarecenter.fragments.CartFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="购物车页面"/>
+        android:layout_above="@+id/layout_cart_by"
+        android:layout_marginTop="10dp">
 
-</FrameLayout>
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/layout_cart_by"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_cart_total"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/tv_cart_total"
+            android:text="合计："
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_cart_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_cart_save"
+            android:layout_centerHorizontal="true"
+            android:text="100"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/tv_cart_save"
+            android:text="节省："
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_cart_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:text="100"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/btn_cart_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="#ff4e20"
+            android:text="购买"
+            android:textColor="#fff"
+            android:textSize="25sp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

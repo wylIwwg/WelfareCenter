@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,10 @@ public class GoodsDetailsActivity extends BaseActivity {
     int goodid;
     UserAvatar user;
     boolean iscollect;
+    @BindView(R.id.img_add_cart)
+    ImageView mImgAddCart;
+    @BindView(R.id.relativeLayout)
+    RelativeLayout mRelativeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -248,5 +253,22 @@ public class GoodsDetailsActivity extends BaseActivity {
             }
         }
         return urls;
+    }
+
+    @OnClick(R.id.img_add_cart)
+    public void addtoCart() {
+        NetDao.addToCart(mContext, user.getMuserName(), goodid, 5, 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+            Log.e("main","添加购物车成功");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 }
