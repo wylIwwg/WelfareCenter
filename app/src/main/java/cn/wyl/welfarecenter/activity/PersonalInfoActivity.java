@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,10 @@ public class PersonalInfoActivity extends BaseActivity {
     @BindView(R.id.img_pr_update)
     ImageView mImgPrUpdate;
     PersonalInfoActivity mc;
+    @BindView(R.id.btn_exchange)
+    Button mBtnExchange;
+    @BindView(R.id.lay_load_info)
+    LinearLayout mLayLoadInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,7 @@ public class PersonalInfoActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.img_back, R.id.tv_mynick, R.id.btn_relogin, R.id.img_avatar_update, R.id.img_pr_update})
+    @OnClick({R.id.img_back, R.id.btn_exchange, R.id.tv_mynick, R.id.btn_relogin, R.id.img_avatar_update, R.id.img_pr_update})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -91,16 +96,19 @@ public class PersonalInfoActivity extends BaseActivity {
                 break;
             case R.id.img_pr_update:
                 break;
+            case R.id.btn_exchange:
+                MFGT.startActivity(this,LoginActivity.class);
+                break;
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == I.TO_UPDATE_NICK && (resultCode == RESULT_OK)) {
+        if (requestCode == I.TO_UPDATE_NICK && (resultCode == RESULT_OK)) {
             Toast.makeText(PersonalInfoActivity.this, "更新昵称成功！", Toast.LENGTH_SHORT).show();
         }
-        Log.e("main","resultcode="+resultCode);
+        Log.e("main", "resultcode=" + resultCode);
         if (resultCode != RESULT_OK) {
             return;
         }
@@ -121,18 +129,18 @@ public class PersonalInfoActivity extends BaseActivity {
     OnSetAvatarListener mAvatarListener;
 
     private void updateAvatar() {
-        File file = new File(OnSetAvatarListener.getAvatarPath(this,user.getMavatarPath()+"/"+user.getMuserName()+I.AVATAR_SUFFIX_JPG));
-        Log.e("main",file.exists()+"file?");
-        Log.e("main",file.getAbsolutePath());
-        NetDao.updateUserAvatar(this, user.getMuserName(),file, new OkHttpUtils.OnCompleteListener<String>() {
+        File file = new File(OnSetAvatarListener.getAvatarPath(this, user.getMavatarPath() + "/" + user.getMuserName() + I.AVATAR_SUFFIX_JPG));
+        Log.e("main", file.exists() + "file?");
+        Log.e("main", file.getAbsolutePath());
+        NetDao.updateUserAvatar(this, user.getMuserName(), file, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 Result result = ResultUtils.getResultFromJson(s, UserAvatar.class);
-                Log.e("main","re=="+result);
-                if (result.getRetCode()==0&&result.isRetMsg()){
-                    UserAvatar user= (UserAvatar) result.getRetData();
-                    if (user!=null){
-                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mc,mImgAvatar);
+                Log.e("main", "re==" + result);
+                if (result.getRetCode() == 0 && result.isRetMsg()) {
+                    UserAvatar user = (UserAvatar) result.getRetData();
+                    if (user != null) {
+                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mc, mImgAvatar);
                         WelfareCenterApplication.setUser(user);
                     }
                 }
