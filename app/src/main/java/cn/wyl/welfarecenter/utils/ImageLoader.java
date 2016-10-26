@@ -391,6 +391,17 @@ public class ImageLoader {
         return null;
     }
 
+    public static String getAvatarDefaultUrl(UserAvatar user) {
+        if (user != null) {
+            String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + I.EQUAL + user.getMuserName()
+                    + I.AND + I.AVATAR_TYPE + I.EQUAL + user.getMavatarPath() + I.AND + I.AVATAR_SUFFIX_TYPE+I.EQUAL
+                    + user.getMavatarSuffix() + I.AND + "width=400&height=400"+"&"+user.getMavatarLastUpdateTime();
+            Log.e("main", url);
+            return url;
+        }
+
+        return null;
+    }
 
     public static void setAvatar(String url, Context context, ImageView imageView) {
         ImageLoader.build(url)

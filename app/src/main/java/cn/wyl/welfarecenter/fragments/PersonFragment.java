@@ -3,6 +3,7 @@ package cn.wyl.welfarecenter.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,7 @@ import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.net.NetDao;
+import cn.wyl.welfarecenter.showimage.ImageShower;
 import cn.wyl.welfarecenter.utils.ImageLoader;
 import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
@@ -128,7 +130,7 @@ public class PersonFragment extends Fragment {
     }
 
 
-    @OnClick({R.id.tv_per_usernick, R.id.tv_setting, R.id.collect_goods, R.id.collect_shops})
+    @OnClick({R.id.tv_per_usernick, R.id.tv_setting, R.id.collect_goods, R.id.collect_shops,R.id.img_per_user_avatar})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_per_usernick:
@@ -145,9 +147,14 @@ public class PersonFragment extends Fragment {
                 break;
             case R.id.collect_shops:
                 break;
+            case R.id.img_per_user_avatar:
+
+               startActivity(new Intent(getActivity(), ImageShower.class));
+                break;
         }
 
     }
+
 
     /**
      * 跳转到个人资料界面
