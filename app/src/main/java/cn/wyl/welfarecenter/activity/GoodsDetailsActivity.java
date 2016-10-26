@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -19,8 +20,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.AlbumsBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
+import cn.wyl.welfarecenter.bean.MessageBean;
+import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
@@ -52,6 +56,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     FlowIndicator mIndicator;
     @BindView(R.id.tv_desc)
     TextView mTvDesc;
+    int goodid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        int goodid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
+        goodid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
         if (goodid == 0) {
             MFGT.finish(this);
         }
@@ -89,6 +94,61 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.img_collect)
+    public void collectGoods() {
+        final UserAvatar user = WelfareCenterApplication.getUser();
+        if (user != null) {
+
+            NetDao.isCollected(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && !result.isSuccess()) {
+                        addCollects(user);
+                    }else {
+                        deleteCollects(user);
+                    }
+
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+        }
+
+    }
+
+    private void deleteCollects(UserAvatar user) {
+        NetDao.deleteCollects(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void addCollects(UserAvatar user) {
+        NetDao.addCollects(mContext, user.getMuserName(), goodid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+                    Log.e("main", "收藏成功！");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
     @OnClick(R.id.img_back)
     public void onBackActivity() {
         MFGT.finish(this);
@@ -99,7 +159,6 @@ public class GoodsDetailsActivity extends BaseActivity {
         View share = getLayoutInflater().inflate(R.layout.activity_share, null);
         AlertDialog.Builder dialogShare = new AlertDialog.Builder(this).
                 setView(share).setNegativeButton(null, null).setPositiveButton(null, null);
-
 
 
         WindowManager manager = getWindowManager();

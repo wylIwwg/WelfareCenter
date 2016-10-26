@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layout_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+               >
+
+
+    <ImageView
+        android:id="@+id/img_goods"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/nopic"/>
+
+    <TextView
+        android:id="@+id/tv_goodsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_goods"
+        android:gravity="center"
+        android:text="羽绒服"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_alignRight="@id/img_goods"
+
+        android:src="@mipmap/delete"/>
+</RelativeLayout>

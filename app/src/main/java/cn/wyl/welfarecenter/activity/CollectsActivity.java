@@ -84,9 +84,9 @@ public class CollectsActivity extends BaseActivity {
             @Override
             public void onItemClicK(View view, int position) {
 
-                int id = (int) view.getTag();
+                CollectBean goods = (CollectBean) view.getTag();
                 Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
-                intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, id);
+                intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goods.getGoodsId());
                 startActivity(intent);
             }
         });

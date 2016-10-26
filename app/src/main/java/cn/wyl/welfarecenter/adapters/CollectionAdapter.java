@@ -2,19 +2,27 @@ package cn.wyl.welfarecenter.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.bean.CollectBean;
+import cn.wyl.welfarecenter.bean.MessageBean;
+import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
  * 项目名称：WelfareCenter
@@ -59,7 +67,7 @@ public class CollectionAdapter extends RecyclerView.Adapter {
         if (viewType == I.TYPE_FOOTER) {
             holder = new FooterItem(View.inflate(mContext, R.layout.item_footer, null));
         } else
-            holder = new GoodsItem(View.inflate(mContext, R.layout.item_newgoods, null));
+            holder = new CollectsHolder(View.inflate(mContext, R.layout.item_collects, null));
 
         return holder;
     }
@@ -72,9 +80,9 @@ public class CollectionAdapter extends RecyclerView.Adapter {
             return;
         }
         CollectBean goods = mList.get(position);
-        GoodsItem vh = (GoodsItem) holder;
+        CollectsHolder vh = (CollectsHolder) holder;
         vh.mTvGoodsName.setText(goods.getGoodsName());
-        vh.mLayoutGoods.setTag(goods.getGoodsId());
+        vh.mLayoutGoods.setTag(goods);
 
         ImageLoader.downloadImg(mContext, vh.mImgGoods, goods.getGoodsThumb());
 
@@ -122,7 +130,7 @@ public class CollectionAdapter extends RecyclerView.Adapter {
     }
 
 
-    class GoodsItem extends RecyclerView.ViewHolder {
+   /* class GoodsItem extends RecyclerView.ViewHolder {
         ImageView mImgGoods;
         TextView mTvGoodsName;
         LinearLayout mLayoutGoods;
@@ -134,7 +142,7 @@ public class CollectionAdapter extends RecyclerView.Adapter {
             mLayoutGoods = (LinearLayout) itemView.findViewById(R.id.layout_goods);
 
         }
-    }
+    }*/
 
     class FooterItem extends RecyclerView.ViewHolder {
         TextView mtv_footer;
@@ -146,9 +154,40 @@ public class CollectionAdapter extends RecyclerView.Adapter {
     }
 
 
+    class CollectsHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.img_goods)
+        ImageView mImgGoods;
+        @BindView(R.id.tv_goodsName)
+        TextView mTvGoodsName;
+        @BindView(R.id.img_delete)
+        ImageView mImgDelete;
+        @BindView(R.id.layout_goods)
+        RelativeLayout mLayoutGoods;
 
+        CollectsHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
 
+        @OnClick(R.id.img_delete)
+        public void deleteCollect() {
+            String name = WelfareCenterApplication.getUser().getMuserName();
+            final CollectBean goods = (CollectBean) mLayoutGoods.getTag();
+            NetDao.deleteCollects(mContext, name, goods.getGoodsId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && result.isSuccess()) {
+                        Log.e("main","删除收藏成功");
+                        mList.remove(goods);
+                        notifyDataSetChanged();
+                    }
+                }
 
-
-
+                @Override
+                public void onError(String error) {
+                    Log.e("main", "error==="+error);
+                }
+            });
+        }
+    }
 }
