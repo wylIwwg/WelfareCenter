@@ -9,6 +9,7 @@ import cn.wyl.welfarecenter.bean.BoutiqueBean;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
 import cn.wyl.welfarecenter.bean.CategoryGroupBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
+import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.bean.Result;
 import cn.wyl.welfarecenter.utils.MD5;
@@ -121,6 +122,14 @@ public class NetDao {
                 .addParam(I.User.USER_NAME, name)
                 .addParam(I.User.NICK, nick)
                 .targetClass(String.class)
+                .execute(listener);
+    }
+
+    public static  void findCollectCount(Context context, String name, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
+                .addParam(I.Collect.USER_NAME, name)
+                .targetClass(MessageBean.class)
                 .execute(listener);
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -96,9 +97,9 @@ public class PersonalInfoActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if (requestCode == I.TO_UPDATE_NICK && (resultCode == RESULT_OK)) {
+        if(requestCode == I.TO_UPDATE_NICK && (resultCode == RESULT_OK)) {
             Toast.makeText(PersonalInfoActivity.this, "更新昵称成功！", Toast.LENGTH_SHORT).show();
-        }*/
+        }
         Log.e("main","resultcode="+resultCode);
         if (resultCode != RESULT_OK) {
             return;

@@ -19,9 +19,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ImageLoader;
 import cn.wyl.welfarecenter.utils.MFGT;
+import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +45,14 @@ public class PersonFragment extends Fragment {
     ImageView mImgMessage;
     @BindView(R.id.user)
     LinearLayout mUser;
+    @BindView(R.id.tv_collect_goods)
+    TextView mTvCollectGoods;
+    @BindView(R.id.collect_goods)
+    LinearLayout mCollectGoods;
+    @BindView(R.id.tv_collect_shops)
+    TextView mTvCollectShops;
+    @BindView(R.id.collect_shops)
+    LinearLayout mCollectShops;
 
 
     public PersonFragment() {
@@ -57,22 +68,47 @@ public class PersonFragment extends Fragment {
         ButterKnife.bind(this, view);
         mContext = getActivity();
         initView();
+        initData();
+
         return view;
 
     }
 
-    private void initView() {
-        //  String userName = SharedPreferencesUtils.getInstance(getActivity()).getUserName();
+    private void initData() {
         user = WelfareCenterApplication.getUser();
 
         if (user == null) {
 
             LoginDialog();
         } else {
-            mTvPerUsernick.setText(user.getMuserNick());
+            //设置收藏宝贝的数目
+            setCollectGoodsCount();
 
+            mTvPerUsernick.setText(user.getMuserNick());
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mImgPerUserAvatar);
         }
+    }
+
+    private void setCollectGoodsCount() {
+        NetDao.findCollectCount(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result.isSuccess()) {
+                    String count = result.getMsg();
+                    mTvCollectGoods.setText(count);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void initView() {
+        //  String userName = SharedPreferencesUtils.getInstance(getActivity()).getUserName();
+
     }
 
     private void LoginDialog() {
@@ -92,7 +128,7 @@ public class PersonFragment extends Fragment {
     }
 
 
-    @OnClick({R.id.tv_per_usernick, R.id.tv_setting})
+    @OnClick({R.id.tv_per_usernick, R.id.tv_setting, R.id.collect_goods, R.id.collect_shops})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_per_usernick:
@@ -105,10 +141,17 @@ public class PersonFragment extends Fragment {
                 break;
             case R.id.btn_relogin:
                 break;
+            case R.id.collect_goods:
+                break;
+            case R.id.collect_shops:
+                break;
         }
 
     }
 
+    /**
+     * 跳转到个人资料界面
+     */
     private void gotoPersonInfo() {
         if (user == null) {
             LoginDialog();
