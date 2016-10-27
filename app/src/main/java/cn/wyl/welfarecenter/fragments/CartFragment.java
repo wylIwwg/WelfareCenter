@@ -1,5 +1,9 @@
 package cn.wyl.welfarecenter.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +46,8 @@ public class CartFragment extends Fragment {
     Button mBtnCartBuy;
     @BindView(R.id.layout_cart_by)
     RelativeLayout mLayoutCartBy;
+    @BindView(R.id.lay_nothing)
+    RelativeLayout mLayNothing;
 
     public CartFragment() {
         // Required empty public constructor
@@ -51,64 +57,100 @@ public class CartFragment extends Fragment {
     ArrayList<CartBean> mList;
     LinearLayoutManager mLayoutManager;
 
+    updatePriceReceiver mReceiver;
+    Context mContext;
+    UserAvatar user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this, view);
-        initView();
+        setLayout(false);
+        user = WelfareCenterApplication.getUser();
+        mContext = getActivity();
         mList = new ArrayList<>();
-        initData(false);
-        mLayoutManager=new LinearLayoutManager(getActivity());
+        initData();
+        initView();
+
+        return view;
+
+    }
+
+
+    private void setLayout(boolean hasCart) {
+        Log.e("main",hasCart?"HAVESONMTHONG":"NOTHING");
+        mLayoutCartBy.setVisibility(hasCart ? View.VISIBLE : View.GONE);
+        mLayNothing.setVisibility(hasCart ? View.GONE : View.VISIBLE);
+    }
+
+
+    public void updatePrice() {
+        if (mList != null && mList.size() > 0) {
+            int sumPrice = 0;
+            int rankPrice = 0;
+            for (CartBean cb : mList) {
+                if (cb.isChecked()) {
+                    sumPrice += getPrice(cb.getGoods().getCurrencyPrice()) * cb.getCount();
+                    rankPrice += getPrice(cb.getGoods().getRankPrice()) * cb.getCount();
+                }
+            }
+            mTvCartSave.setText(sumPrice - rankPrice + "");
+            mTvCartTotal.setText(sumPrice + "");
+        } else {
+            setLayout(false);
+        }
+    }
+
+    //修改价格的广播
+    class updatePriceReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("main", "updatePriceReceiver");
+            updatePrice();
+
+        }
+    }
+
+    //获取数值型的价格
+    protected int getPrice(String price) {
+        price = price.substring(price.indexOf("￥") + 1);
+        return Integer.parseInt(price);
+    }
+
+
+
+    private void initView() {
+
+
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATE_PRICE);
+        mReceiver = new updatePriceReceiver();
+        mContext.registerReceiver(mReceiver, filter);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mAdapter = new CartAdapter(getActivity(), mList);
         mRecycleCart.setAdapter(mAdapter);
         mRecycleCart.setHasFixedSize(true);
         mRecycleCart.setLayoutManager(mLayoutManager);
-
         mRecycleCart.addItemDecoration(new SpaceItemDecoration(12));
-        return view;
+
     }
 
-    UserAvatar user;
-
-    private void initView() {
-        user = WelfareCenterApplication.getUser();
-        if (user != null) {
-            NetDao.findCarts(getActivity(), user.getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
-                @Override
-                public void onSuccess(CartBean[] result) {
-                    if (result != null && result.length > 0) {
-                        Log.e("main",result.toString());
-                        ArrayList<CartBean> cartBeen = ConvertUtils.array2List(result);
-                        Log.e("main", "购物车商品数量=" + cartBeen.size());
-                    }
-                }
-
-                @Override
-                public void onError(String error) {
-
-                }
-            });
-        }
-    }
-
-    private void initData(final boolean isAll) {
+    private void initData() {
 
         NetDao.findCarts(getActivity(), user.getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
             @Override
             public void onSuccess(CartBean[] result) {
-
-
                 mAdapter.setMore(true);
                 if (result != null && result.length > 0) {
+                    setLayout(true);
                     ArrayList<CartBean> list = ConvertUtils.array2List(result);
-                    mList = list;
-                    if (isAll) {
-                        mAdapter.initAllData(list);
-                    } else {
-                        mAdapter.initData(list);
+                    if (mList!=null){
+                        mList.clear();
                     }
+                    mList.addAll(list);
+                    mAdapter.initData(mList);
                     if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         mAdapter.setMore(false);
                     }
@@ -123,18 +165,30 @@ public class CartFragment extends Fragment {
 
                 CommonUtils.showLongToast(error);
                 mAdapter.setMore(false);
+                setLayout(false);
             }
         });
 
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("main", "Cartfragmrt.resume...");
+        initData();
         initView();
     }
 
     @OnClick(R.id.btn_cart_buy)
     public void onClick() {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            mContext.unregisterReceiver(mReceiver);
+        }
     }
 }

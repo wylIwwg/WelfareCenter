@@ -107,11 +107,11 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void updateUserAvatar(Context context, String name, File file,OkHttpUtils.OnCompleteListener<String> listener) {
+    public static void updateUserAvatar(Context context, String name, File file, OkHttpUtils.OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
                 .addParam(I.NAME_OR_HXID, name)
-                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addParam(I.AVATAR_TYPE, I.AVATAR_TYPE_USER_PATH)
                 .addFile2(file)
                 .targetClass(String.class)
                 .post()
@@ -127,7 +127,7 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static  void findCollectCount(Context context, String name, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+    public static void findCollectCount(Context context, String name, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
                 .addParam(I.Collect.USER_NAME, name)
@@ -135,37 +135,38 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void downCollects(Context context, String name , int pageId, OkHttpUtils.OnCompleteListener<CollectBean[]> listener) {
+    public static void downCollects(Context context, String name, int pageId, OkHttpUtils.OnCompleteListener<CollectBean[]> listener) {
         OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
                 .addParam(I.Collect.USER_NAME, name)
-                .addParam(I.PAGE_ID,pageId+"")
-                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .addParam(I.PAGE_ID, pageId + "")
+                .addParam(I.PAGE_SIZE, I.PAGE_SIZE_DEFAULT + "")
                 .targetClass(CollectBean[].class)
                 .execute(listener);
     }
 
-    public static void deleteCollects(Context context, String name, int goodsId,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+    public static void deleteCollects(Context context, String name, int goodsId, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_DELETE_COLLECT)
                 .addParam(I.Collect.USER_NAME, name)
-                .addParam(I.Collect.GOODS_ID,goodsId+"")
+                .addParam(I.Collect.GOODS_ID, goodsId + "")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
 
-    public static void isCollected(Context context, String name, int goodsId,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+    public static void isCollected(Context context, String name, int goodsId, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_IS_COLLECT)
-                .addParam(I.Collect.GOODS_ID,goodsId+"")
+                .addParam(I.Collect.GOODS_ID, goodsId + "")
                 .addParam(I.Collect.USER_NAME, name)
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
-    public static void addCollects(Context context, String name, int goodsId,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+
+    public static void addCollects(Context context, String name, int goodsId, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_ADD_COLLECT)
-                .addParam(I.Collect.GOODS_ID,goodsId+"")
+                .addParam(I.Collect.GOODS_ID, goodsId + "")
                 .addParam(I.Collect.USER_NAME, name)
                 .targetClass(MessageBean.class)
                 .execute(listener);
@@ -174,21 +175,40 @@ public class NetDao {
     public static void findCarts(Context context, String muserName, OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
         OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_CARTS)
-                .addParam(I.Cart.USER_NAME,muserName)
+                .addParam(I.Cart.USER_NAME, muserName)
                 .targetClass(CartBean[].class)
                 .execute(listener);
     }
 
 
-
     public static void addToCart(Context context, String muserName, int goodid,
-                                 int count, int ischecked,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+                                 int count, int ischecked, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_ADD_CART)
-                .addParam(I.Cart.GOODS_ID,goodid+"")
+                .addParam(I.Cart.GOODS_ID, goodid + "")
                 .addParam(I.Cart.USER_NAME, muserName)
-                .addParam(I.Cart.COUNT,count+"")
-                .addParam(I.Cart.IS_CHECKED,ischecked+"")
+                .addParam(I.Cart.COUNT, count + "")
+                .addParam(I.Cart.IS_CHECKED, ischecked + "")
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void updateCartCount(Context context, int cartId, int count,
+                                       int ischecked, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID, cartId + "")
+                .addParam(I.Cart.COUNT, count + "")
+                .addParam(I.Cart.IS_CHECKED, ischecked + "")
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void deleteCart(Context context, int cartId,
+                                   OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_CART)
+                .addParam(I.Cart.ID, cartId + "")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }

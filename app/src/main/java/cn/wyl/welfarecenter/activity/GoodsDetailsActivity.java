@@ -257,11 +257,11 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.img_add_cart)
     public void addtoCart() {
-        NetDao.addToCart(mContext, user.getMuserName(), goodid, 5, 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+        NetDao.addToCart(mContext, user.getMuserName(), goodid, 1, 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
             @Override
             public void onSuccess(MessageBean result) {
                 if (result != null && result.isSuccess()) {
-            Log.e("main","添加购物车成功");
+                    Log.e("main", "添加购物车成功");
                 }
             }
 

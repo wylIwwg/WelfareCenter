@@ -78,6 +78,7 @@ public interface I {
     int NEW_GOOD = 0;
     int CATEGORY_GOOD = 1;
     int CAT_ID = 0;
+    String BROADCAST_UPDATE_PRICE = "broast_update_price";
 
 
     interface Goods {

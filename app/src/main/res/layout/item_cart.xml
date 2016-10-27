@@ -78,21 +78,31 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_toRightOf="@+id/lay_info"
         android:background="#fff">
 
         <TextView
+            android:layout_toLeftOf="@+id/cb_cart"
             android:id="@+id/tv_cart_goodsPrice"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@color/list_background"
             android:gravity="center"
             android:text="1000"
             android:textSize="18sp"/>
-    </LinearLayout>
+       <CheckBox
+           android:layout_centerVertical="true"
+           android:layout_alignParentRight="true"
+           android:gravity="center"
+           android:id="@+id/cb_cart"
+           style="@style/CustomCheckboxTheme"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
 </RelativeLayout>

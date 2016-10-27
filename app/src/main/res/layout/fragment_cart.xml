@@ -3,12 +3,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_cart_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="#ff4e20"
+        android:gravity="center"
+        android:text="购物车"
+        android:textColor="#fff"
+        android:textSize="25sp"/>
+
+    <RelativeLayout
+        android:id="@+id/lay_nothing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_cart_title">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="购物车空空的，去浏览商品吧"
+            android:textColor="#ff4e20"
+            android:textSize="25sp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cart"/>
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_cart_by"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/tv_cart_title"
+        android:layout_marginTop="0dp">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -35,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_cart_save"
             android:layout_centerHorizontal="true"
-            android:text="100"
+            android:text="0"
             android:textSize="20sp"/>
 
         <TextView
@@ -55,7 +88,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
-            android:text="100"
+            android:text="0"
             android:textSize="20sp"/>
 
         <Button
