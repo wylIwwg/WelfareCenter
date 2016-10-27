@@ -150,6 +150,7 @@ public class CartFragment extends Fragment {
                         mList.clear();
                     }
                     mList.addAll(list);
+                    mContext.sendBroadcast(new Intent(I.CART_STATUS));
                     mAdapter.initData(mList);
                     if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         mAdapter.setMore(false);
@@ -157,7 +158,6 @@ public class CartFragment extends Fragment {
                 } else {
                     mAdapter.setMore(false);
                 }
-
             }
 
             @Override

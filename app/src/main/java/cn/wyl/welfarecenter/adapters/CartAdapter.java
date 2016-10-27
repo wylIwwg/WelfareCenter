@@ -98,7 +98,6 @@ public class CartAdapter extends RecyclerView.Adapter {
     public void initData(ArrayList<CartBean> list) {
 
         mList=list;
-        Log.e("main","mlist.size="+mList.size());
         notifyDataSetChanged();
     }
 
@@ -156,6 +155,7 @@ public class CartAdapter extends RecyclerView.Adapter {
                                 if (result.isSuccess() && result != null) {
                                     mList.remove(posotion);
                                     mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATE_PRICE));
+                                    mContext.sendBroadcast(new Intent(I.CART_STATUS));
                                     notifyDataSetChanged();
                                 }
                             }

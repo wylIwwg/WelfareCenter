@@ -1,6 +1,9 @@
 package cn.wyl.welfarecenter.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +20,7 @@ import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
+import cn.wyl.welfarecenter.bean.CartBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.dao.SharedPreferencesUtils;
@@ -25,6 +29,8 @@ import cn.wyl.welfarecenter.fragments.CartFragment;
 import cn.wyl.welfarecenter.fragments.CategoryFragment;
 import cn.wyl.welfarecenter.fragments.NewGoodsFragment;
 import cn.wyl.welfarecenter.fragments.PersonFragment;
+import cn.wyl.welfarecenter.net.NetDao;
+import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
  * 添加闪屏
@@ -47,20 +53,55 @@ public class MainActivity extends BaseActivity {
 
     NewGoodsAdapter mNewGoodsAdapter;
     ArrayList<NewGoodsBean> mList;
+    CartStatusReceiver mReceiver;
+    UserAvatar user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        user = WelfareCenterApplication.getUser();
         initView();
 
 
     }
 
+
     private void initView() {
-        mList = new ArrayList<>();
-        mNewGoodsAdapter = new NewGoodsAdapter(this, mList);
+        if (user != null) {
+            findCartCount();
+
+
+        }
+
+        mReceiver = new CartStatusReceiver();
+        IntentFilter filter = new IntentFilter(I.CART_STATUS);
+        registerReceiver(mReceiver, filter);
+
+
+        // mList = new ArrayList<>();
+        //  mNewGoodsAdapter = new NewGoodsAdapter(this, mList);
+        setFragment();
+    }
+
+    private void findCartCount() {
+
+        NetDao.findCarts(this, user.getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
+            @Override
+            public void onSuccess(CartBean[] result) {
+                mTvCartHint.setText(result.length + "");
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+
+    }
+
+    private void setFragment() {
         groupButton[0] = mRbNewgoods;
         groupButton[1] = mRbBoutique;
         groupButton[2] = mRbCategory;
@@ -138,7 +179,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (index==4&& WelfareCenterApplication.getUser()!=null) {
+        if (index == 4 && WelfareCenterApplication.getUser() != null) {
             PersonFragment fragment = new PersonFragment();
 
             getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
@@ -153,13 +194,13 @@ public class MainActivity extends BaseActivity {
         switch (requestCode) {
             case I.TO_LOGIN_AC:
                 UserAvatar user = WelfareCenterApplication.getUser();
-               if (user!=null) {
-                   Log.e("main", "登录成功：" + user + "");
-                   PersonFragment fragment = new PersonFragment();
-                   getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
-                   mFragments[4] = fragment;
-                   setRadioButtonStatus();
-               }
+                if (user != null) {
+                    Log.e("main", "登录成功：" + user + "");
+                    PersonFragment fragment = new PersonFragment();
+                    getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+                    mFragments[4] = fragment;
+                    setRadioButtonStatus();
+                }
                 break;
             case I.TO_PERSONAINFO_AC:
                 if (WelfareCenterApplication.getUser() == null) {
@@ -195,5 +236,22 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         SharedPreferencesUtils.getInstance(this).removeUser();
         finish();
+    }
+
+
+    class CartStatusReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            findCartCount();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 }
