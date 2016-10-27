@@ -179,6 +179,8 @@ public class NetDao {
                 .execute(listener);
     }
 
+
+
     public static void addToCart(Context context, String muserName, int goodid,
                                  int count, int ischecked,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);

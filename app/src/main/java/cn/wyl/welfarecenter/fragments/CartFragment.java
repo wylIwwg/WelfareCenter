@@ -79,6 +79,7 @@ public class CartFragment extends Fragment {
                 @Override
                 public void onSuccess(CartBean[] result) {
                     if (result != null && result.length > 0) {
+                        Log.e("main",result.toString());
                         ArrayList<CartBean> cartBeen = ConvertUtils.array2List(result);
                         Log.e("main", "购物车商品数量=" + cartBeen.size());
                     }

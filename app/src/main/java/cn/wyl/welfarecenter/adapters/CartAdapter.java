@@ -15,9 +15,7 @@ import butterknife.ButterKnife;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.bean.CartBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
-import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ImageLoader;
-import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
  * 项目名称：WelfareCenter
@@ -68,23 +66,15 @@ public class CartAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        final CartBean goods = mList.get(position);
         final CartViewHolder vh = (CartViewHolder) holder;
-        NetDao.downGoodsDetails(mContext, goods.getGoodsId(), new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
-            @Override
-            public void onSuccess(GoodsDetailsBean result) {
-
-                vh.mTvCartGoodsName.setText(result.getGoodsName());
-                vh.mTvCartGoodsPrice.setText(result.getCurrencyPrice()+"*"+goods.getCount());
-                ImageLoader.downloadImg(mContext, vh.mImgCartGoods, result.getGoodsThumb());
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-        vh.mTvCartGoodsCount.setText(goods.getCount()+"");
+        final CartBean goods = mList.get(position);
+        GoodsDetailsBean goodsDetails= goods.getGoods();
+        if (goodsDetails!=null){
+            vh.mTvCartGoodsName.setText(goodsDetails.getGoodsName());
+            vh.mTvCartGoodsPrice.setText(goodsDetails.getCurrencyPrice());
+            ImageLoader.downloadImg(mContext,vh.mImgCartGoods,goodsDetails.getGoodsThumb());
+        }
+        vh.mTvCartGoodsCount.setText("("+goods.getCount()+")");
 
         if (mOnItemCKListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

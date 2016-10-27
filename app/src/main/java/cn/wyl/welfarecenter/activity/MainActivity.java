@@ -66,14 +66,14 @@ public class MainActivity extends BaseActivity {
         groupButton[2] = mRbCategory;
         groupButton[3] = mRbCart;
         groupButton[4] = mRbCenter;
-        groupButton[0].setChecked(true);
+        groupButton[3].setChecked(true);
         //首次加载选中新品页面的Fragment
-        mFragments[0] = new NewGoodsFragment();
+        mFragments[3] = new CartFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.frameLayout, mFragments[0])
+                .add(R.id.frameLayout, mFragments[3])
 
-                .show(mFragments[0]).commit();
+                .show(mFragments[3]).commit();
     }
 
 
