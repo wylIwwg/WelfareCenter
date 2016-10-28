@@ -181,8 +181,9 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         if (index == 4 && WelfareCenterApplication.getUser() != null) {
             PersonFragment fragment = new PersonFragment();
-
-            getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(mFragments[4])
+                    .add(R.id.frameLayout, fragment).show(fragment).commitAllowingStateLoss();
             mFragments[4] = fragment;
             setRadioButtonStatus();
         }
