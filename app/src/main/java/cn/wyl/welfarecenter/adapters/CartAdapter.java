@@ -1,5 +1,6 @@
 package cn.wyl.welfarecenter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 
 /**
@@ -48,7 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter {
 
     public CartAdapter(Context context, List<CartBean> list) {
         mContext = context;
-        mList=list;
+        mList = list;
     }
 
     @Override
@@ -97,7 +99,7 @@ public class CartAdapter extends RecyclerView.Adapter {
 
     public void initData(ArrayList<CartBean> list) {
 
-        mList=list;
+        mList = list;
         notifyDataSetChanged();
     }
 
@@ -125,8 +127,16 @@ public class CartAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
+        @OnClick({R.id.tv_cart_goodsPrice, R.id.tv_cart_goodsName, R.id.img_cart_goods})
+        public void gotoGoodsDetails(View view) {
+            Log.e("main", "gotogoodsdetails");
+            final int posotion = (int) mImgCartAdd.getTag();
+            CartBean cart = mList.get(posotion);
+            MFGT.gotoGoodsDetailsAC((Activity) mContext, cart.getGoodsId());
+        }
+
         @OnClick({R.id.img_cart_del, R.id.img_cart_add})
-        public void onClick(View view) {
+        public void updateCount(View view) {
             final int posotion = (int) view.getTag();
             CartBean cart = mList.get(posotion);
             switch (view.getId()) {

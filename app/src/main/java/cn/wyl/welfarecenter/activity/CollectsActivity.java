@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
@@ -23,6 +24,7 @@ import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.CommonUtils;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
+import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
@@ -160,5 +162,11 @@ public class CollectsActivity extends BaseActivity {
             }
         });
 
+    }
+
+
+    @OnClick(R.id.img_back)
+    public void finishAc(View view){
+        MFGT.finish(this);
     }
 }

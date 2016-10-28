@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.activity.GoodsDetailsActivity;
 import cn.wyl.welfarecenter.activity.LoginActivity;
 import cn.wyl.welfarecenter.activity.MainActivity;
 import cn.wyl.welfarecenter.activity.PersonalInfoActivity;
@@ -53,6 +54,13 @@ public class MFGT {
 
         Intent intent = new Intent(context, RegisterActivity.class);
         context.startActivityForResult(intent, I.TO_REGISTER_AC);
+        context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
+    public static void gotoGoodsDetailsAC(Activity context, int goodsId) {
+        Intent intent=new Intent(context, GoodsDetailsActivity.class);
+        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
+        context.startActivity(intent);
         context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }

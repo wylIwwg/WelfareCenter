@@ -1,7 +1,6 @@
 package cn.wyl.welfarecenter.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,12 +17,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
-import cn.wyl.welfarecenter.activity.GoodsDetailsActivity;
 import cn.wyl.welfarecenter.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.CommonUtils;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
+import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
@@ -78,9 +77,8 @@ public class NewGoodsFragment extends Fragment {
             public void onItemClicK(View view, int position) {
 
                 int id = (int) view.getTag();
-                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
-                intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, id);
-                startActivity(intent);
+                MFGT.gotoGoodsDetailsAC(getActivity(),id);
+
             }
         });
 
