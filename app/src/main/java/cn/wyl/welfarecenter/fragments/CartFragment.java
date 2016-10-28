@@ -24,12 +24,14 @@ import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.activity.OrderActivity;
 import cn.wyl.welfarecenter.adapters.CartAdapter;
 import cn.wyl.welfarecenter.bean.CartBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
 import cn.wyl.welfarecenter.net.NetDao;
 import cn.wyl.welfarecenter.utils.CommonUtils;
 import cn.wyl.welfarecenter.utils.ConvertUtils;
+import cn.wyl.welfarecenter.utils.MFGT;
 import cn.wyl.welfarecenter.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
@@ -60,6 +62,8 @@ public class CartFragment extends Fragment {
     updatePriceReceiver mReceiver;
     Context mContext;
     UserAvatar user;
+    ArrayList<CartBean> mHashSet;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,17 +88,20 @@ public class CartFragment extends Fragment {
         mLayNothing.setVisibility(hasCart ? View.GONE : View.VISIBLE);
     }
 
-
+int totalPrice;
     public void updatePrice() {
+        mHashSet=new ArrayList<>();
         if (mList != null && mList.size() > 0) {
             int sumPrice = 0;
             int rankPrice = 0;
             for (CartBean cb : mList) {
                 if (cb.isChecked()) {
+                    mHashSet.add(cb);
                     sumPrice += getPrice(cb.getGoods().getCurrencyPrice()) * cb.getCount();
                     rankPrice += getPrice(cb.getGoods().getRankPrice()) * cb.getCount();
                 }
             }
+            totalPrice=sumPrice;
             mTvCartSave.setText(sumPrice - rankPrice + "");
             mTvCartTotal.setText(sumPrice + "");
         } else {
@@ -182,6 +189,11 @@ public class CartFragment extends Fragment {
 
     @OnClick(R.id.btn_cart_buy)
     public void onClick() {
+        Intent intent=new Intent(getActivity(), OrderActivity.class);
+        intent.putExtra(I.Cart.ID,mHashSet);
+        intent.putExtra("price",totalPrice);
+
+        MFGT.gotoOrderAC(getActivity(),intent);
     }
 
     @Override
