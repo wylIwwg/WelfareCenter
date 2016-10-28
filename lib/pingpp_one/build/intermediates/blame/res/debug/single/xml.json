@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_change.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_change.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_symbols.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_symbols.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_symbols.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_symbols.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_symbols.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_symbols.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_symbols.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_symbols.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_change.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_change.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_x.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_x.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_qwerty.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_qwerty.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_dot.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_dot.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_x.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_x.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_qwerty.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_qwerty.xml"
+    },
+    {
+        "merged": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number_with_dot.xml",
+        "source": "E:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number_with_dot.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\debug\\xml\\cmbkb_number.xml",
+        "source": "E:\\AndroidProjects\\WelfareCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\WelfareCenter.lib\\pingpp\\unspecified\\res\\xml\\cmbkb_number.xml"
+    }
+]

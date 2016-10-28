@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -83,14 +84,15 @@ public class CartFragment extends Fragment {
 
 
     private void setLayout(boolean hasCart) {
-        Log.e("main",hasCart?"HAVESONMTHONG":"NOTHING");
+        Log.e("main", hasCart ? "HAVESONMTHONG" : "NOTHING");
         mLayoutCartBy.setVisibility(hasCart ? View.VISIBLE : View.GONE);
         mLayNothing.setVisibility(hasCart ? View.GONE : View.VISIBLE);
     }
 
-int totalPrice;
+    int totalPrice;
+
     public void updatePrice() {
-        mHashSet=new ArrayList<>();
+        mHashSet = new ArrayList<>();
         if (mList != null && mList.size() > 0) {
             int sumPrice = 0;
             int rankPrice = 0;
@@ -101,7 +103,7 @@ int totalPrice;
                     rankPrice += getPrice(cb.getGoods().getRankPrice()) * cb.getCount();
                 }
             }
-            totalPrice=sumPrice;
+            totalPrice = sumPrice;
             mTvCartSave.setText(sumPrice - rankPrice + "");
             mTvCartTotal.setText(sumPrice + "");
         } else {
@@ -125,7 +127,6 @@ int totalPrice;
         price = price.substring(price.indexOf("￥") + 1);
         return Integer.parseInt(price);
     }
-
 
 
     private void initView() {
@@ -153,7 +154,7 @@ int totalPrice;
                 if (result != null && result.length > 0) {
                     setLayout(true);
                     ArrayList<CartBean> list = ConvertUtils.array2List(result);
-                    if (mList!=null){
+                    if (mList != null) {
                         mList.clear();
                     }
                     mList.addAll(list);
@@ -189,11 +190,14 @@ int totalPrice;
 
     @OnClick(R.id.btn_cart_buy)
     public void onClick() {
-        Intent intent=new Intent(getActivity(), OrderActivity.class);
-        intent.putExtra(I.Cart.ID,mHashSet);
-        intent.putExtra("price",totalPrice);
-
-        MFGT.gotoOrderAC(getActivity(),intent);
+        if ( mHashSet != null&&mHashSet.size() > 0) {
+            Intent intent = new Intent(getActivity(), OrderActivity.class);
+            intent.putExtra(I.Cart.ID, mHashSet);
+            intent.putExtra("price", totalPrice);
+            MFGT.gotoOrderAC(getActivity(), intent);
+        }else {
+            Toast.makeText(getActivity(), "还未选择商品", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
