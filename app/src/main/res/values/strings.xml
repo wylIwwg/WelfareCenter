@@ -22,4 +22,8 @@
     <string name="register_fail_exists">user name exists</string>
     <string name="login">Login</string>
     <string name="login_failed">login fail,please check your wangluo</string>
+    <string name="login_first">please login first</string>
+    <string name="collect_cancel">collect cancel</string>
+    <string name="collect_ok">collect ok</string>
+    <string name="add_cart_ok">add to cart ok</string>
 </resources>

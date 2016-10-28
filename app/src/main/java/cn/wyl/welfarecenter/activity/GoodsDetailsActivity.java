@@ -143,7 +143,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     @OnClick(R.id.img_collect)
     public void collectGoods() {
         if (user == null) {
-            Toast.makeText(GoodsDetailsActivity.this, "请先登录...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoodsDetailsActivity.this, R.string.login_first, Toast.LENGTH_SHORT).show();
             return;
         }
         if (iscollect) {
@@ -182,7 +182,7 @@ public class GoodsDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(MessageBean result) {
                 if (result != null && result.isSuccess()) {
-                    Toast.makeText(GoodsDetailsActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoodsDetailsActivity.this, R.string.collect_cancel, Toast.LENGTH_SHORT).show();
                     mImgCollect.setImageResource(R.mipmap.bg_collect_in);
                     iscollect = false;
                 }
@@ -201,7 +201,7 @@ public class GoodsDetailsActivity extends BaseActivity {
             public void onSuccess(MessageBean result) {
                 if (result != null && result.isSuccess()) {
                     Log.e("main", "收藏成功！");
-                    Toast.makeText(GoodsDetailsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoodsDetailsActivity.this, R.string.collect_ok, Toast.LENGTH_SHORT).show();
                     iscollect = true;
                     mImgCollect.setImageResource(R.mipmap.bg_collect_out);
                 }
@@ -263,7 +263,7 @@ public class GoodsDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(MessageBean result) {
                 if (result != null && result.isSuccess()) {
-                    Toast.makeText(GoodsDetailsActivity.this, "添加到购物车成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoodsDetailsActivity.this, R.string.add_cart_ok, Toast.LENGTH_SHORT).show();
                     Log.e("main", "添加购物车成功");
                 }
             }
