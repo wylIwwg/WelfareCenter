@@ -70,7 +70,10 @@ public class CartFragment extends Fragment {
         user = WelfareCenterApplication.getUser();
         mContext = getActivity();
         mList = new ArrayList<>();
-        initData();
+        if (user!=null){
+
+            initData();
+        }
         initView();
 
         return view;
@@ -176,8 +179,11 @@ public class CartFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.e("main", "Cartfragmrt.resume...");
-        initData();
-        initView();
+        if(user!=null){
+
+            initData();
+            initView();
+        }
     }
 
     @OnClick(R.id.btn_cart_buy)

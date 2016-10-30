@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -182,7 +183,7 @@ public class MainActivity extends BaseActivity {
         if (index == 4 && WelfareCenterApplication.getUser() != null) {
             PersonFragment fragment = new PersonFragment();
 
-            getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(mFragments[4]).add(R.id.frameLayout, fragment).show(fragment).commitAllowingStateLoss();
             mFragments[4] = fragment;
             setRadioButtonStatus();
         }
@@ -231,11 +232,17 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
+ boolean isTwice=false;
     @Override
     public void onBackPressed() {
-        SharedPreferencesUtils.getInstance(this).removeUser();
-        finish();
+        if (isTwice){
+
+            SharedPreferencesUtils.getInstance(this).removeUser();
+            finish();
+
+        }
+        isTwice=true;
+        Toast.makeText(MainActivity.this, "点击两次即退出程序！", Toast.LENGTH_SHORT).show();
     }
 
 
