@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
 import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.activity.OrderActivity;
 import cn.wyl.welfarecenter.adapters.CartAdapter;
 import cn.wyl.welfarecenter.bean.CartBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
@@ -86,9 +87,10 @@ public class CartFragment extends Fragment {
         mLayoutCartBy.setVisibility(hasCart ? View.VISIBLE : View.GONE);
         mLayNothing.setVisibility(hasCart ? View.GONE : View.VISIBLE);
     }
-
+int totalPrice;
 
     public void updatePrice() {
+        totalPrice=0;
         if (mList != null && mList.size() > 0) {
             int sumPrice = 0;
             int rankPrice = 0;
@@ -98,6 +100,7 @@ public class CartFragment extends Fragment {
                     rankPrice += getPrice(cb.getGoods().getRankPrice()) * cb.getCount();
                 }
             }
+            totalPrice=sumPrice;
             mTvCartSave.setText(sumPrice - rankPrice + "");
             mTvCartTotal.setText(sumPrice + "");
         } else {
@@ -188,7 +191,18 @@ public class CartFragment extends Fragment {
 
     @OnClick(R.id.btn_cart_buy)
     public void onClick() {
-    }
+
+        if (mList!=null&&mList.size()>0){
+            Intent intent=new Intent(getActivity(), OrderActivity.class);
+            intent.putExtra("price",totalPrice);
+            startActivity(intent);
+        }
+
+
+
+
+//
+ }
 
     @Override
     public void onDestroy() {
