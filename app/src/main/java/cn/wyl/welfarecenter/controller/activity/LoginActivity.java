@@ -1,0 +1,149 @@
+package cn.wyl.welfarecenter.controller.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.wyl.welfarecenter.I;
+import cn.wyl.welfarecenter.R;
+import cn.wyl.welfarecenter.WelfareCenterApplication;
+import cn.wyl.welfarecenter.bean.Result;
+import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.model.dao.SharedPreferencesUtils;
+import cn.wyl.welfarecenter.model.dao.UserDao;
+import cn.wyl.welfarecenter.model.net.NetDao;
+import cn.wyl.welfarecenter.model.utils.MFGT;
+import cn.wyl.welfarecenter.model.utils.OkHttpUtils;
+import cn.wyl.welfarecenter.model.utils.ResultUtils;
+
+/**
+ * 项目名称：WelfareCenter
+ * 创建人：wyl
+ * 时间：2016/10/14 14:18
+ */
+public class LoginActivity extends BaseActivity {
+
+    @BindView(R.id.img_back)
+    ImageView mImgBack;
+    @BindView(R.id.et_userName)
+    EditText mEtUserName;
+    @BindView(R.id.et_password)
+    EditText mEtPassword;
+    @BindView(R.id.btn_login)
+    Button mBtnLogin;
+    @BindView(R.id.btn_freeRegister)
+    Button mBtnFreeRegister;
+
+    String name;
+    LoginActivity mContext;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        mContext = this;
+
+    }
+
+    @OnClick({R.id.img_back, R.id.btn_login, R.id.btn_freeRegister})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.img_back:
+                MFGT.finish(this);
+                break;
+            case R.id.btn_login:
+                final String name = mEtUserName.getText().toString();
+                String password = mEtPassword.getText().toString();
+                if (name.equals("")) {
+                    Toast.makeText(LoginActivity.this, R.string.user_name_connot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (password.equals("")) {
+                    Toast.makeText(LoginActivity.this, R.string.password_connot_be_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // isExistName(name);
+                userLogin(name, password);
+
+                break;
+            case R.id.btn_freeRegister:
+               // MFGT.startActivity(LoginActivity.this, RegisterActivity.class);
+                MFGT.gotoRegisterActivity(this);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("main","denglu:");
+        if (requestCode== I.TO_REGISTER_AC&&resultCode==RESULT_OK){
+            Log.e("main","注册成功");
+            Toast.makeText(LoginActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+            name = data.getStringExtra("userName");
+            if (name != null) {
+                mEtUserName.setText(name);
+            }
+        }
+    }
+
+    private void userLogin(String name, String password) {
+        NetDao.doLogin(this, name, password, new OkHttpUtils.OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Result userresult = ResultUtils.getResultFromJson(result, UserAvatar.class);
+                if (userresult.getRetCode() == 0 && userresult.isRetMsg()) {
+
+                    UserAvatar user = (UserAvatar) userresult.getRetData();
+                    UserDao dao = new UserDao(mContext);
+                    boolean isSuccess = dao.saveUser(user);
+                    if (isSuccess) {
+                        WelfareCenterApplication.setUser(user);
+                        SharedPreferencesUtils.getInstance(mContext).saveUserInfo(user.getMuserName());
+                        Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("user",user);
+                        setResult(RESULT_OK,intent);
+                        MFGT.finish(mContext);
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+   /* private void isExistName(final String name) {
+        //判断是否已经存在该用户
+        NetDao.doFindUserByName(this, name, new OkHttpUtils.OnCompleteListener<Result>() {
+            @Override
+            public void onSuccess(Result result) {
+                if (result.getRetCode() == 0 && result.isRetMsg()) {
+                    Toast.makeText(LoginActivity.this, "用户名：" + name + " 不存在！", Toast.LENGTH_SHORT).show();
+                    mEtUserName.requestFocus();
+                    return;
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+            }
+        });
+    }*/
+}

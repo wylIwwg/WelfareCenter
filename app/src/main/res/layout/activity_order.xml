@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="cn.wyl.welfarecenter.activity.OrderActivity">
+    tools:context=".controller.activity.OrderActivity">
 
     <TextView  android:background="#ff4e20"
         android:id="@+id/tv_order_title"

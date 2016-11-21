@@ -21,10 +21,10 @@ import java.util.ArrayList;
 
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
-import cn.wyl.welfarecenter.activity.CategoryGoodsActivity;
+import cn.wyl.welfarecenter.controller.activity.CategoryGoodsActivity;
 import cn.wyl.welfarecenter.bean.CategoryChildBean;
-import cn.wyl.welfarecenter.utils.ConvertUtils;
-import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.model.utils.ConvertUtils;
+import cn.wyl.welfarecenter.model.utils.ImageLoader;
 
 
 /**
@@ -57,11 +57,11 @@ public class CatChildFilterButton extends Button {
     private void initPopupWindow() {
         mPopupWindow = new PopupWindow();
         mPopupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        if (mgvCategory.getAdapter().getCount() < 16) {
+       // if (mgvCategory.getAdapter().getCount() < 16) {
             mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-        } else {
-            mPopupWindow.setHeight(ConvertUtils.px2dp(mContext, 300));
-        }
+       // } else {
+            //mPopupWindow.setHeight(ConvertUtils.px2dp(mContext, 300));
+       // }
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0xbb000000));

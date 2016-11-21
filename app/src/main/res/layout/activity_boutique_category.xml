@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.wyl.welfarecenter.activity.BoutiqueCategoryActivity">
+    tools:context=".controller.activity.BoutiqueCategoryActivity">
 
     <RelativeLayout
         android:id="@+id/R_title"

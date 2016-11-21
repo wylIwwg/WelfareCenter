@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.wyl.welfarecenter.utils.ImageLoader;
+import cn.wyl.welfarecenter.model.utils.ImageLoader;
 
 
 /**

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="cn.wyl.welfarecenter.activity.CollectsActivity">
+    tools:context=".controller.activity.CollectsActivity">
 
     <include layout="@layout/common_title"/>
 
