@@ -19,11 +19,11 @@ import cn.wyl.welfarecenter.bean.NewGoodsBean;
 import cn.wyl.welfarecenter.controller.commonadapter.CommonAdapter;
 import cn.wyl.welfarecenter.controller.commonadapter.CommonViewHolder;
 import cn.wyl.welfarecenter.controller.commonadapter.MultiItemAdapter;
-import cn.wyl.welfarecenter.model.net.NetDao;
+import cn.wyl.welfarecenter.model.net.ModelNeworBoutiqueGoods;
+import cn.wyl.welfarecenter.model.net.onCompleteListener;
 import cn.wyl.welfarecenter.model.utils.ConvertUtils;
 import cn.wyl.welfarecenter.model.utils.ImageLoader;
 import cn.wyl.welfarecenter.model.utils.MFGT;
-import cn.wyl.welfarecenter.model.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
 public class BoutiqueCategoryActivity extends BaseActivity {
@@ -42,6 +42,8 @@ public class BoutiqueCategoryActivity extends BaseActivity {
     MultiItemAdapter<NewGoodsBean> mMultiItemAdapter;
     GridLayoutManager mManager;
 
+    ModelNeworBoutiqueGoods mNeworBoutiqueGoods;
+
     ArrayList<NewGoodsBean> mList;
     String cateName;
     int catId;
@@ -58,6 +60,8 @@ public class BoutiqueCategoryActivity extends BaseActivity {
         if (catId < 0) {
             finish();
         }
+
+        mNeworBoutiqueGoods = new ModelNeworBoutiqueGoods();
         initData(I.ACTION_DOWNLOAD);
         initView();
         setListener();
@@ -87,7 +91,7 @@ public class BoutiqueCategoryActivity extends BaseActivity {
 
     private void initData(final int action) {
         mList = new ArrayList<>();
-        NetDao.downNeworBoutiqueGoods(this, catId, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        mNeworBoutiqueGoods.downNeworBoutiqueGoods(this, catId, pageId, new onCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 if (result != null && result.length > 0) {
@@ -113,7 +117,7 @@ public class BoutiqueCategoryActivity extends BaseActivity {
         mTvBoutiCateName.setText(cateName);
         mContext = this;
         mManager = new GridLayoutManager(this, 2);
-       mCommonAdapter = new CommonAdapter<NewGoodsBean>(this, mList, R.layout.item_newgoods) {
+        mCommonAdapter = new CommonAdapter<NewGoodsBean>(this, mList, R.layout.item_newgoods) {
             @Override
             public void convert(CommonViewHolder holder, NewGoodsBean goodsBean) {
                 ImageView img_goods = holder.getView(R.id.img_goods);

@@ -21,7 +21,7 @@ import cn.wyl.welfarecenter.bean.BoutiqueBean;
 import cn.wyl.welfarecenter.controller.activity.BoutiqueCategoryActivity;
 import cn.wyl.welfarecenter.controller.commonadapter.CommonAdapter;
 import cn.wyl.welfarecenter.controller.commonadapter.CommonViewHolder;
-import cn.wyl.welfarecenter.model.net.ModelBoutique;
+import cn.wyl.welfarecenter.model.net.ModelNeworBoutiqueGoods;
 import cn.wyl.welfarecenter.model.net.onCompleteListener;
 import cn.wyl.welfarecenter.model.utils.ConvertUtils;
 import cn.wyl.welfarecenter.model.utils.ImageLoader;
@@ -33,7 +33,7 @@ public class BoutiqueFragment extends Fragment {
     RecyclerView mRecyBoutique;
 
     LinearLayoutManager mLayoutManager;
-    ModelBoutique mBoutique;
+    ModelNeworBoutiqueGoods mBoutique;
 
     CommonAdapter<BoutiqueBean> testAdapter;
     ArrayList<BoutiqueBean> testList;
@@ -73,7 +73,7 @@ public class BoutiqueFragment extends Fragment {
 
     private void initView() {
 
-        mBoutique = new ModelBoutique();
+        mBoutique = new ModelNeworBoutiqueGoods();
         mLayoutManager = new LinearLayoutManager(getActivity());
         //  mList=new ArrayList<>();
 

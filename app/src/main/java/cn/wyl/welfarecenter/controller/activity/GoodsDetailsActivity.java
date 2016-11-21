@@ -23,7 +23,9 @@ import cn.wyl.welfarecenter.bean.AlbumsBean;
 import cn.wyl.welfarecenter.bean.GoodsDetailsBean;
 import cn.wyl.welfarecenter.bean.MessageBean;
 import cn.wyl.welfarecenter.bean.UserAvatar;
+import cn.wyl.welfarecenter.model.net.ModelGoodsDetails;
 import cn.wyl.welfarecenter.model.net.NetDao;
+import cn.wyl.welfarecenter.model.net.onCompleteListener;
 import cn.wyl.welfarecenter.model.utils.MFGT;
 import cn.wyl.welfarecenter.model.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.FlowIndicator;
@@ -62,6 +64,8 @@ public class GoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.relativeLayout)
     RelativeLayout mRelativeLayout;
 
+    ModelGoodsDetails mGoodsDetails;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +84,8 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     private void initView() {
 
+        mGoodsDetails=new ModelGoodsDetails();
+
         isCollect();
 
         downGoodsDetails();
@@ -87,7 +93,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     }
 
     private void downGoodsDetails() {
-        NetDao.downGoodsDetails(mContext, goodid, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
+        mGoodsDetails.downGoodsDetails(mContext, goodid, new onCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
                 if (result.getProperties() == null) {

@@ -17,13 +17,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.wyl.welfarecenter.I;
 import cn.wyl.welfarecenter.R;
-import cn.wyl.welfarecenter.controller.adapters.NewGoodsAdapter;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
-import cn.wyl.welfarecenter.model.net.NetDao;
+import cn.wyl.welfarecenter.controller.adapters.NewGoodsAdapter;
+import cn.wyl.welfarecenter.model.net.ModelNeworBoutiqueGoods;
+import cn.wyl.welfarecenter.model.net.onCompleteListener;
 import cn.wyl.welfarecenter.model.utils.CommonUtils;
 import cn.wyl.welfarecenter.model.utils.ConvertUtils;
 import cn.wyl.welfarecenter.model.utils.MFGT;
-import cn.wyl.welfarecenter.model.utils.OkHttpUtils;
 import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 
 
@@ -43,6 +43,8 @@ public class NewGoodsFragment extends Fragment {
     @BindView(R.id.swiper)
     SwipeRefreshLayout mSwiper;
 
+    ModelNeworBoutiqueGoods mNeworBoutiqueGoods;
+
     public NewGoodsFragment() {
     }
 
@@ -52,6 +54,8 @@ public class NewGoodsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, view);
+        mNeworBoutiqueGoods=new ModelNeworBoutiqueGoods();
+
         mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_red),
@@ -120,7 +124,7 @@ public class NewGoodsFragment extends Fragment {
 
     private void initData(final boolean isAll) {
 
-        NetDao.downNeworBoutiqueGoods(getActivity(), 0,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        mNeworBoutiqueGoods.downNeworBoutiqueGoods(getActivity(), 0,pageId, new onCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mSwiper.setRefreshing(false);

@@ -2,6 +2,7 @@ package cn.wyl.welfarecenter.model.net;
 
 import android.content.Context;
 
+import cn.wyl.welfarecenter.bean.BoutiqueBean;
 import cn.wyl.welfarecenter.bean.NewGoodsBean;
 
 /**
@@ -11,4 +12,5 @@ import cn.wyl.welfarecenter.bean.NewGoodsBean;
  */
 public interface IModelNeworBoutiqueGoods {
     void downNeworBoutiqueGoods(Context context, int catId, int pageId, onCompleteListener<NewGoodsBean[]> listener);
+    void downBoutique(Context context, onCompleteListener<BoutiqueBean[]> listener);
 }
