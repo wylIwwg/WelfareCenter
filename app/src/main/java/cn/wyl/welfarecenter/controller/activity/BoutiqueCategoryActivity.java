@@ -29,12 +29,7 @@ import cn.wyl.welfarecenter.views.SpaceItemDecoration;
 public class BoutiqueCategoryActivity extends BaseActivity {
 
 
-    @BindView(R.id.img_back)
-    ImageView mImgBack;
-    @BindView(R.id.tv_bouti_cate_name)
-    TextView mTvBoutiCateName;
-
-    @BindView(R.id.recy_boutique_cate)
+    @BindView(R.id.recycleLayout)
     RecyclerView mRecyBoutiqueCate;
 
     CommonAdapter<NewGoodsBean> mCommonAdapter;
@@ -49,11 +44,15 @@ public class BoutiqueCategoryActivity extends BaseActivity {
     int catId;
     int pageId = 1;
     Context mContext;
+    @BindView(R.id.img_back)
+    ImageView mImgBack;
+    @BindView(R.id.tv_title_name)
+    TextView mTvTitieName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boutique_category);
+        setContentView(R.layout.newgoods_boutique_category);
         ButterKnife.bind(this);
         cateName = getIntent().getStringExtra(I.Boutique.NAME);
         catId = getIntent().getIntExtra(I.Boutique.CAT_ID, -1);
@@ -114,7 +113,7 @@ public class BoutiqueCategoryActivity extends BaseActivity {
     }
 
     private void initView() {
-        mTvBoutiCateName.setText(cateName);
+        mTvTitieName.setText(cateName);
         mContext = this;
         mManager = new GridLayoutManager(this, 2);
         mCommonAdapter = new CommonAdapter<NewGoodsBean>(this, mList, R.layout.item_newgoods) {
@@ -126,6 +125,7 @@ public class BoutiqueCategoryActivity extends BaseActivity {
                 tv_name.setText(goodsBean.getGoodsName());
                 TextView tv_price = holder.getView(R.id.tv_goodsPrice);
                 tv_price.setText(goodsBean.getCurrencyPrice());
+
             }
         };
 

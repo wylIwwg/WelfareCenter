@@ -32,7 +32,7 @@ public class CollectsActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
     ImageView mImgBack;
-    @BindView(R.id.tv_bouti_cate_name)
+    @BindView(R.id.tv_title_name)
     TextView mTvBoutiCateName;
     @BindView(R.id.tv_refresh)
     TextView mTvRefresh;

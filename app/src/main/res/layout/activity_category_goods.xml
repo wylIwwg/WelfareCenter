@@ -52,5 +52,5 @@
             android:layout_width="1dp" android:layout_weight="1"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <include layout="@layout/fragment_new_goods"></include>
+    <include  layout="@layout/newgoods_boutique_category"></include>
 </LinearLayout>

@@ -10,7 +10,7 @@
     <include layout="@layout/common_title"/>
 
     <LinearLayout
-        android:layout_below="@id/R_title"
+        android:layout_below="@+id/R_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include layout="@layout/fragment_new_goods"/>

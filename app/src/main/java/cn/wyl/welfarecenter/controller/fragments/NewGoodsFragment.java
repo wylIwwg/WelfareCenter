@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,6 +45,11 @@ public class NewGoodsFragment extends Fragment {
     SwipeRefreshLayout mSwiper;
 
     ModelNeworBoutiqueGoods mNeworBoutiqueGoods;
+    @BindView(R.id.img_back)
+    ImageView mImgBack;
+    @BindView(R.id.tv_title_name)
+    TextView mTvTitleName;
+
 
     public NewGoodsFragment() {
     }
@@ -52,9 +58,9 @@ public class NewGoodsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_goods, container, false);
+        View view = inflater.inflate(R.layout.newgoods_boutique_category, container, false);
         ButterKnife.bind(this, view);
-        mNeworBoutiqueGoods=new ModelNeworBoutiqueGoods();
+        mNeworBoutiqueGoods = new ModelNeworBoutiqueGoods();
 
         mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
@@ -64,14 +70,21 @@ public class NewGoodsFragment extends Fragment {
         mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mList = new ArrayList<>();
         initData(false);
+        initView();
+
+        setListeners();
+        return view;
+    }
+
+    private void initView() {
+        mImgBack.setVisibility(View.INVISIBLE);
+        mTvTitleName.setText("新品");
+
         mNewGoodsAdapter = new NewGoodsAdapter(getActivity(), mList);
         mRecycleLayout.setAdapter(mNewGoodsAdapter);
         mRecycleLayout.setHasFixedSize(true);
         mRecycleLayout.setLayoutManager(mGridLayoutManager);
         mRecycleLayout.addItemDecoration(new SpaceItemDecoration(12));
-
-        setListeners();
-        return view;
     }
 
     private void setListeners() {
@@ -81,7 +94,7 @@ public class NewGoodsFragment extends Fragment {
             public void onItemClicK(View view, int position) {
 
                 int id = (int) view.getTag();
-                MFGT.gotoGoodsDetailsAC(getActivity(),id);
+                MFGT.gotoGoodsDetailsAC(getActivity(), id);
 
             }
         });
@@ -124,7 +137,7 @@ public class NewGoodsFragment extends Fragment {
 
     private void initData(final boolean isAll) {
 
-        mNeworBoutiqueGoods.downNeworBoutiqueGoods(getActivity(), 0,pageId, new onCompleteListener<NewGoodsBean[]>() {
+        mNeworBoutiqueGoods.downNeworBoutiqueGoods(getActivity(), 0, pageId, new onCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mSwiper.setRefreshing(false);

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -56,7 +57,10 @@ public class CategoryGoodsActivity extends BaseActivity {
     CatChildFilterButton mBtnCatChildFilter;
 
     String cateName;
-    ArrayList<CategoryChildBean> listChild=new ArrayList<>();
+    ArrayList<CategoryChildBean> listChild = new ArrayList<>();
+    @BindView(R.id.R_title)
+    LinearLayout mRTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +69,13 @@ public class CategoryGoodsActivity extends BaseActivity {
         //获取传过来的值
         Intent intent = getIntent();
         catId = intent.getIntExtra(I.CategoryChild.CAT_ID, 0);
-        cateName=intent.getStringExtra(I.CategoryGroup.NAME);
-        listChild= (ArrayList<CategoryChildBean>) intent.getSerializableExtra("childList");
+        cateName = intent.getStringExtra(I.CategoryGroup.NAME);
+        listChild = (ArrayList<CategoryChildBean>) intent.getSerializableExtra("childList");
         if (catId == 0) {
             finish();
         }
 
-        mCategory=new ModelCategory();
+        mCategory = new ModelCategory();
 
         mList = new ArrayList<>();
         initData(false);
@@ -81,8 +85,10 @@ public class CategoryGoodsActivity extends BaseActivity {
 
     private void initView() {
         //使用自定义布局文件设置内容
+        mRTitle.setVisibility(View.GONE);
+
         mBtnCatChildFilter.setText(cateName);
-        mBtnCatChildFilter.setOnCatFilterClickListener(cateName,listChild);
+        mBtnCatChildFilter.setOnCatFilterClickListener(cateName, listChild);
 
         mSwiper.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
@@ -173,6 +179,7 @@ public class CategoryGoodsActivity extends BaseActivity {
 
     /**
      * 根据布尔值判断箭头的走向，并设置排序flag
+     *
      * @param view
      */
     @OnClick({R.id.btn_price, R.id.btn_time, R.id.img_back})
